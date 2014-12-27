@@ -1,0 +1,6 @@
+#########################
+# .gitignore file for OS X System
+#########################
+
+# Emacs temporary files
+*~

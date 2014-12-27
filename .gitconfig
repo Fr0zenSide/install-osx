@@ -1,0 +1,18 @@
+[alias]
+	co = checkout
+	ci = commit
+	st = status
+	br = branch
+	lg = log --oneline --graph
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+[core]
+	excludesfile = .gitignore
+	editor = emacs
+[user]
+	email = jeoffrey.thirot@gmail.com
+	name = Jeoffrey Thirot
