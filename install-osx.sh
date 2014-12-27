@@ -1,9 +1,9 @@
 #!/bin/bash
 
-#Settup Mac OS X
+# Settup Mac OS X
 # Settup animation duration to apply expose
-#defaults write com.apple.dock expose-animation-duration -float 0.15
-#killall Dock
+defaults write com.apple.dock expose-animation-duration -float 0.15
+killall Dock
 
 # Allow the selection of text on QuickLoock
 defaults write com.apple.finder QLEnableTextSelection -bool true && killall Finder
@@ -21,14 +21,20 @@ done
 #echo "xCode is installed :  $input"
 
 echo 'xcode is installed'
+
+# add git alias config
+cp .gitconfig $HOME/.gitconfig
+
+# install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 tmp=$(brew -v)
 echo '$tmp installed'
 wait
-#cd ~/Desktop
-#echo 'move on Desktop'
+
+# install brew cask, it use to install others softs
 brew install caskroom/cask/brew-cask
 wait
+
 echo "install dev environment (node, python, pip, venv, postgres)"
 brew install node
 tmp=$(node -v)
@@ -41,6 +47,7 @@ echo "npm v$tmp installed"
 brew install python
 pip install virtualenv
 wait
+
 brew install postgres
 # creating the datbabase
 initdb /usr/local/var/postgres -E utf8
@@ -102,10 +109,10 @@ brew cask install 4k-video-downloader
 brew cask install 4k-youtube-to-mp3
 brew cask install chromecast
 brew cask install sequential
-
 wait
 
-brew alfred
+# If it doesn't work, you can manually add /opt/homebrew-cask/Caskroom to the Search Scope in Alfred Preferences 
+brew cask alfred
 brew update && brew upgrade brew-cask && brew cleanup
 wait
 
