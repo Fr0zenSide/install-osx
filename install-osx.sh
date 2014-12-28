@@ -10,19 +10,27 @@ killall Dock
 # Allow the selection of text on QuickLoock
 defaults write com.apple.finder QLEnableTextSelection -bool true && killall Finder
 
+# install command line tools and ask before if you need it
+unset input
+echo "Have you already install command line tools? [y/n]"
+read input
+if [[ $input != y && $input != Y ]];
+then 
 
 xcode-select --install
-
+    
 unset input
 #while [[ ! ${input} = y ]]; do
 while [[ ${input} != y && $input != Y ]]; do
-    echo "Have you finished to install xCode? [y/n]"
+    echo "Have you finished to install command line tools? [y/n]"
     read input
 done
 #echo "xCode is installed :  ${input}"
 #echo "xCode is installed :  $input"
 
-echo 'xcode is installed'
+echo 'command line tools is installed'
+fi
+
 
 # add git alias config
 cp .gitconfig $HOME/.gitconfig
