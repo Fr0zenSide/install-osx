@@ -1,7 +1,5 @@
-install-osx
-===========
-
 Initialization of Mac OS X
+===========
 
 If you want to get this script from github, you need at the first place to install git. You can get it with command line tools of OS X.
 For this you need to launch on terminal this command :
