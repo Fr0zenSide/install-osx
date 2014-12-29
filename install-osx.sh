@@ -75,6 +75,15 @@ tmp=$(cat $HOME/.bash_profile)
 printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
 echo "PATH => $(cat $HOME/.bash_profile)"
 source $HOME/.bash_profile
+
+# install IOS environment with cocoapods
+# update ruby gem
+sudo gem update --system
+
+# install cocoapods
+sudo gem install cocoapods
+# clone the repository on ~/.cocoapods/
+pod setup
 wait
 
 echo "install quicklook plugin"
