@@ -95,7 +95,7 @@ brew cask install qlprettypatch
 brew cask install quicklook-csv
 brew cask install betterzipql
 brew cask install webpquicklook
-brew cast install qlimagesize
+brew cask install qlimagesize
 brew cask install suspicious-package
 brew cask install provisionql
 brew cask install qlvideo
@@ -116,6 +116,7 @@ brew cask install vlc
 brew cask install utorrent
 brew cask install vox
 brew cask install charles
+brew cask install bonjour-browser
 brew cask install paragon-ntfs
 brew cask install paragon-extfs
 brew cask install istat-menus
