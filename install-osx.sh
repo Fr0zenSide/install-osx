@@ -3,6 +3,10 @@
 # Settup Mac OS X
 # if you want to get this script from github, to install git, you need to install command line tools with xcode-select --install
 
+# Move on directory of this script
+DIR=$(dirname $0)
+cd $DIR
+
 # Settup animation duration to apply expose
 defaults write com.apple.dock expose-animation-duration -float 0.15
 killall Dock
