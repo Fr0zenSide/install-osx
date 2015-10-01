@@ -8,7 +8,8 @@ DIR=$(dirname $0)
 cd $DIR
 
 # Settup animation duration to apply expose
-defaults write com.apple.dock expose-animation-duration -float 0.15
+defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write com.apple.Dock autohide-delay -float 0
 killall Dock
 
 # Allow the selection of text on QuickLoock
