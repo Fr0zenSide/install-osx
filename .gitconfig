@@ -4,6 +4,8 @@
 	st = status
 	br = branch
 	lg = log --oneline --graph
+	ld = diff HEAD..HEAD^
+        ci-undo = reset --soft HEAD~1
 [color]
 	diff = auto
 	status = auto
