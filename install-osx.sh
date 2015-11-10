@@ -76,8 +76,10 @@ launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 brew install ffmpeg
 
 # change order on PATH environment
-tmp=$(cat $HOME/.bash_profile)
-printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
+#tmp=$(cat $HOME/.bash_profile)
+#printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
+printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
+printf "\nexport HOMEBREW_CASK_OPTS=\"--appdir=/Applications --caskroom=/Applications/Caskroom\"\n" >> $HOME/.bash_profile
 echo "PATH => $(cat $HOME/.bash_profile)"
 source $HOME/.bash_profile
 
@@ -136,7 +138,7 @@ brew cask install chromecast
 brew cask install sequential
 wait
 
-# If it doesn't work, you can manually add /opt/homebrew-cask/Caskroom to the Search Scope in Alfred Preferences 
+# If it doesn't work, you can manually add /Applications/Caskroom to the Search Scope in Alfred Preferences 
 brew cask alfred
 brew update && brew upgrade brew-cask && brew cleanup
 wait
