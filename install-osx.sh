@@ -15,6 +15,9 @@ killall Dock
 # Allow the selection of text on QuickLoock
 defaults write com.apple.finder QLEnableTextSelection -bool true && killall Finder
 
+# Allow Apple crash reports like notifications
+defaults write com.apple.CrashReporter UseUNC 1
+
 # install command line tools and ask before if you need it
 unset input
 echo "Have you already install command line tools? [y/n]"
