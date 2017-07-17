@@ -33,8 +33,8 @@ while [[ ${input} != y && $input != Y ]]; do
     echo "Have you finished to install command line tools? [y/n]"
     read input
 done
-#echo "xCode is installed :  ${input}"
-#echo "xCode is installed :  $input"
+#echo "Xcode is installed :  ${input}"
+#echo "Xcode is installed :  $input"
 
 echo 'command line tools is installed'
 fi
@@ -49,6 +49,9 @@ tmp=$(brew -v)
 echo '$tmp installed'
 wait
 
+#install wget
+#brew install wget
+
 # install brew cask, it use to install others softs
 brew install caskroom/cask/brew-cask
 wait
@@ -62,8 +65,8 @@ echo "npm v$tmp installed"
 # check if you need to launch the next command to update npm
 # npm install -g npm@latest
 
-brew install python
-pip install virtualenv
+#brew install python
+#pip install virtualenv
 wait
 
 brew install postgres
@@ -76,11 +79,11 @@ ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
 launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
 
 # install ffmpeg
-brew install ffmpeg
+#brew install ffmpeg
 
 # change order on PATH environment
 #tmp=$(cat $HOME/.bash_profile)
-#printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
+printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
 printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
 printf "\nexport HOMEBREW_CASK_OPTS=\"--appdir=/Applications --caskroom=/Applications/Caskroom\"\n" >> $HOME/.bash_profile
 echo "PATH => $(cat $HOME/.bash_profile)"
@@ -88,13 +91,22 @@ source $HOME/.bash_profile
 
 # install IOS environment with cocoapods
 # update ruby gem
-sudo gem update --system
+# sudo gem update --system
+sudo gem update -n /usr/local/bin --system
 
+echo install Xcode environnement
 # install cocoapods
-sudo gem install cocoapods
+#sudo gem install cocoapods
+sudo gem install -n /usr/local/bin cocoapods
 # clone the repository on ~/.cocoapods/
 pod setup
 wait
+
+# install command-line to generate your project’s documentation 
+gem install jazzy
+
+# install SwiftLint to enforce Swift style and conventions
+brew install swiftlint
 
 echo "install quicklook plugin"
 brew cask install qlcolorcode
@@ -110,39 +122,35 @@ brew cask install suspicious-package
 brew cask install provisionql
 brew cask install qlvideo
 brew cask install quickpvr
+#brew cask install DBFLook
 wait
 
 echo "install of my softs"
-brew cask install gfxcardstatus
-brew cask install google-chrome
+#brew cask install google-chrome
 brew cask install firefox
-brew cask install alfred
 brew cask install handbrake
 brew cask install spectacle
 brew cask install steam
 brew cask install skype
 brew cask install sublime-text
+brew cask install textmate
 brew cask install vlc
-brew cask install utorrent
-brew cask install vox
-brew cask install charles
+#brew cask install vox
+brew cask install dropbox
+brew cask install spotify
+brew cask install spotify-notifications
 brew cask install bonjour-browser
-brew cask install paragon-ntfs
-brew cask install paragon-extfs
+#brew cask install paragon-ntfs
+#brew cask install paragon-extfs
 brew cask install istat-menus
-brew cask install unity-web-player
-brew cask install flash-player
-brew cask install logitech-control-center
 brew cask install onyx
-brew cask install apikitchen
+brew cask install postman
 brew cask install 4k-video-downloader
 brew cask install 4k-youtube-to-mp3
-brew cask install chromecast
+#brew cask install chromecast
 brew cask install sequential
 wait
 
-# If it doesn't work, you can manually add /Applications/Caskroom to the Search Scope in Alfred Preferences 
-brew cask alfred
 brew update && brew upgrade brew-cask && brew cleanup
 wait
 
