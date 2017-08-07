@@ -149,6 +149,7 @@ brew cask install 4k-video-downloader
 brew cask install 4k-youtube-to-mp3
 #brew cask install chromecast
 brew cask install sequential
+brew cask install wwdc
 wait
 
 brew update && brew upgrade brew-cask && brew cleanup
