@@ -87,6 +87,7 @@ printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_p
 printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
 printf "\nexport HOMEBREW_CASK_OPTS=\"--appdir=/Applications --caskroom=/Applications/Caskroom\"\n" >> $HOME/.bash_profile
 echo "PATH => $(cat $HOME/.bash_profile)"
+printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
 # install IOS environment with cocoapods
@@ -137,17 +138,16 @@ brew cask install textmate
 brew cask install vlc
 #brew cask install vox
 brew cask install dropbox
+brew cask install beardedspice
 brew cask install spotify
 brew cask install spotify-notifications
+brew cask install spotifree
 brew cask install bonjour-browser
-#brew cask install paragon-ntfs
-#brew cask install paragon-extfs
 brew cask install istat-menus
 brew cask install onyx
 brew cask install postman
 brew cask install 4k-video-downloader
 brew cask install 4k-youtube-to-mp3
-#brew cask install chromecast
 brew cask install sequential
 brew cask install wwdc
 wait
