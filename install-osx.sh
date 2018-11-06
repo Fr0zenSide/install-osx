@@ -49,50 +49,21 @@ tmp=$(brew -v)
 echo '$tmp installed'
 wait
 
-#install wget
-#brew install wget
-
 # install brew cask, it use to install others softs
 brew install caskroom/cask/brew-cask
 wait
 
-echo "install dev environment (node, python, pip, venv, postgres)"
-brew install node
-tmp=$(node -v)
-echo "node $tmp installed"
-tmp=$(npm -v)
-echo "npm v$tmp installed"
-# check if you need to launch the next command to update npm
-# npm install -g npm@latest
-
-#brew install python
-#pip install virtualenv
-wait
-
-brew install postgres
-# creating the datbabase
-initdb /usr/local/var/postgres -E utf8
-wait
-# start Postgres at login and running on the background
-mkdir -p ~/Library/LaunchAgents
-ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
-launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
-
-# install ffmpeg
-#brew install ffmpeg
-
 # change order on PATH environment
-#tmp=$(cat $HOME/.bash_profile)
-printf "$tmp\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH" > $HOME/.bash_profile
 printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
-printf "\nexport HOMEBREW_CASK_OPTS=\"--appdir=/Applications --caskroom=/Applications/Caskroom\"\n" >> $HOME/.bash_profile
 echo "PATH => $(cat $HOME/.bash_profile)"
 printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
 source $HOME/.bash_profile
 
+# Install Oh my zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 # install IOS environment with cocoapods
 # update ruby gem
-# sudo gem update --system
 sudo gem update -n /usr/local/bin --system
 
 echo install Xcode environnement
@@ -122,26 +93,21 @@ brew cask install qlimagesize
 brew cask install suspicious-package
 brew cask install provisionql
 brew cask install qlvideo
-brew cask install quickpvr
-#brew cask install DBFLook
 wait
 
 echo "install of my softs"
-#brew cask install google-chrome
+# brew cask install google-chrome # it's already installed
 brew cask install firefox
 brew cask install handbrake
 brew cask install spectacle
 brew cask install steam
-brew cask install skype
 brew cask install sublime-text
 brew cask install textmate
 brew cask install vlc
-#brew cask install vox
-brew cask install dropbox
 brew cask install beardedspice
 brew cask install spotify
 brew cask install spotify-notifications
-brew cask install spotifree
+# brew cask install spotifree
 brew cask install bonjour-browser
 brew cask install istat-menus
 brew cask install onyx
