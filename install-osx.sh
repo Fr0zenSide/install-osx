@@ -175,6 +175,10 @@ elif [[ $input == 5 ]]; then
 	brew cask install 4k-youtube-to-mp3
 	brew cask install sequential
 	brew cask install wwdc
+	brew cask install transmit
+	brew cask install aerial
+	brew cask install whatsapp
+	brew cask install wintertime
 	wait
 
 	brew update && brew upgrade && brew cleanup
