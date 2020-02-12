@@ -6,6 +6,7 @@
 	lg = log --oneline --graph
 	ld = diff HEAD..HEAD^
         ci-undo = reset --soft HEAD~1
+	rm-last-ci = reset --hard HEAD^
 [color]
 	diff = auto
 	status = auto
