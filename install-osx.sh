@@ -43,6 +43,10 @@ fi
 # add git alias config
 cp .gitconfig $HOME/.gitconfig
 
+# Display the building time on xcode HUD
+defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES
+
+
 # install Homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 tmp=$(brew -v)
