@@ -4,9 +4,11 @@
 	st = status
 	br = branch
 	lg = log --oneline --graph
-	ld = diff HEAD..HEAD^
+	ld = diff HEAD^..HEAD
         ci-undo = reset --soft HEAD~1
 	rm-last-ci = reset --hard HEAD^
+	stats = diff --stat
+        sss = diff --shortstat
 [color]
 	diff = auto
 	status = auto
