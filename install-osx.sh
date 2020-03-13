@@ -11,11 +11,12 @@ cd $DIR
 echo ""
 unset input
 echo "###  Do you want to do? "
-echo "##   1 - Install Xcode"
+echo "##   1 - Install Command Line Tools in MacOS"
 echo "##   2 - Install Homebrew"
-echo "##   3 - Setup iOS environment* (require Xcode & Homebrew)"
-echo "##   4 - Install Oh my zsh"
-echo "##   5 - Setup MacOS & Install softwares with cask"
+echo "##   3 - Install Xcode* (require Homebrew and use mas)"
+echo "##   4 - Setup iOS environment* (require Xcode & Homebrew)"
+echo "##   5 - Install Oh my zsh"
+echo "##   6 - Setup MacOS & Install softwares with cask & mas"
 printf "##   >   "
 read input
 echo ""
@@ -23,7 +24,7 @@ echo ""
 
 
 
-# Install Xcode
+# Install Command Line Tools in MacOS
 if [[ $input == 1 ]]; then 
 
 
@@ -63,8 +64,28 @@ elif [[ $input == 2 ]]; then
 
 
 
-# Setup iOS environment* (require Xcode & Homebrew)
+	#echo "Xcode is installed :  $input"
+
+	echo 'command line tools is installed'
+
+
+
+# Install Xcode* (require Homebrew and use mas)
 elif [[ $input == 3 ]]; then 
+
+
+    # intall MAS (Mac App Store command line interface)
+    brew install mas
+    mas install 497799835 # identifier of xcode => mas search xcode
+    # we can also use mas lucky xcode => but the day your have another app in first result, you don't install xcode 😅
+    # You have to agree the Xcode license. Please resolve this by running:
+    echo 'You have to agree the Xcode license. Please enter the admin password. \nRunning > $sudo xcodebuild -license accept'
+    sudo xcodebuild -license accept
+
+
+
+# Setup iOS environment* (require Xcode & Homebrew)
+elif [[ $input == 4 ]]; then 
 
 
 
@@ -108,7 +129,7 @@ elif [[ $input == 3 ]]; then
 
 
 # Install Oh my zsh
-elif [[ $input == 4 ]]; then 
+elif [[ $input == 5 ]]; then 
 
 
 
@@ -124,7 +145,7 @@ elif [[ $input == 4 ]]; then
 
 
 # Install softwares with cask
-elif [[ $input == 5 ]]; then 
+elif [[ $input == 6 ]]; then 
 
 
 
@@ -146,7 +167,7 @@ elif [[ $input == 5 ]]; then
 	brew cask install quicklook-json
 	brew cask install qlprettypatch
 	brew cask install quicklook-csv
-	brew cask install betterzipql
+	# brew cask install betterzipql # Error: Cask 'betterzipql' is unavailable: No Cask with this name exists.
 	brew cask install webpquicklook
 	brew cask install qlimagesize
 	brew cask install suspicious-package
@@ -154,8 +175,9 @@ elif [[ $input == 5 ]]; then
 	brew cask install qlvideo
 	wait
 
-	echo "install of my softs"
-	# brew cask install google-chrome # it's already installed
+	echo "install of my softs throught cask"
+	brew cask install google-chrome # it's already installed
+	brew cask install srware-iron
 	brew cask install firefox
 	brew cask install handbrake
 	brew cask install spectacle
@@ -167,7 +189,6 @@ elif [[ $input == 5 ]]; then
 	brew cask install spotify
 	brew cask install spotify-notifications
 	# brew cask install spotifree
-	brew cask install bonjour-browser
 	brew cask install istat-menus
 	brew cask install onyx
 	brew cask install postman
@@ -181,6 +202,21 @@ elif [[ $input == 5 ]]; then
 	brew cask install wintertime
 	wait
 
+	echo "install of my softs throught mas"
+	mas install 425424353  # identifier of The Unarchiver     (4.2.0)
+	mas install 1330801220 # Paste JSON as Code • quicktype   (8.2.22)
+	mas install 1381004916 # Discovery - DNS-SD Browser       (2.0.3)
+	mas install 1380446739 # InjectionIII                     (1.8)
+	mas install 1102494854 # System Designer                  (4.4.0)
+	mas install 1007457278 # Realm Browser                    (3.0.1)
+	mas install 824183456  # Affinity Photo                   (1.8.1)
+	mas install 824171161  # Affinity Designer                (1.8.1)
+	mas install 461369673  # VOX: MP3 & FLAC Music Player     (3.3.17)
+	# TODO: Add my new tools of productivity
+	mas lucky "Planny 3 Listes intelligentes"
+	mas lucky "Tot"
+	wait
+	
 	brew update && brew upgrade && brew cleanup
 	wait
 
