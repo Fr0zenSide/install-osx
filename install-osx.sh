@@ -95,6 +95,9 @@ elif [[ $input == 4 ]]; then
 	# Inception:: install a wew OS ¯\_(ಥ‿ಥ)_/¯ 
 	brew install emacs
 
+	# helper for see tree in terminal
+	brew install tree
+
 	# install IOS environment with cocoapods
 	# update ruby gem
 	sudo gem update -n /usr/local/bin --system
@@ -199,11 +202,15 @@ elif [[ $input == 6 ]]; then
 	brew cask install transmit
 	brew cask install aerial
 	brew cask install whatsapp
+	brew cask install flixtools
+	brew cask install motrix
+	brew cask install coconutbattery
 	brew cask install wintertime
 	wait
 
 	echo "install of my softs throught mas"
 	mas install 425424353  # identifier of The Unarchiver     (4.2.0)
+	mas install 736189492  # Notability                       (4.2.4)
 	mas install 1330801220 # Paste JSON as Code • quicktype   (8.2.22)
 	mas install 1381004916 # Discovery - DNS-SD Browser       (2.0.3)
 	mas install 1380446739 # InjectionIII                     (1.8)
