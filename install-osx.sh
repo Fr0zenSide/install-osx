@@ -105,20 +105,24 @@ elif [[ $input == 4 ]]; then
 	# install fastlane
 	brew install fastlane
 
-	# install carthage
-	brew install carthage
-
 	echo install Xcode environnement
-	# install cocoapods
 
 	# Display the building time on xcode HUD
 	defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES
+	
+	# install carthage
+	brew install carthage
 
+	
+	# install cocoapods
 	#sudo gem install cocoapods
 	sudo gem install -n /usr/local/bin cocoapods
 	# clone the repository on ~/.cocoapods/
 	pod setup
 	wait
+
+	# install sourcery
+	brew install sourcery
 
 	# install command-line to generate your project’s documentation 
 	gem install jazzy
@@ -128,6 +132,9 @@ elif [[ $input == 4 ]]; then
 
 	# install bundle exec
 	sudo gem install -n /usr/local/bin bundler
+
+	# install xcpretty
+	sudo gem install -n /usr/local/bin xcpretty
 
 
 
