@@ -115,8 +115,8 @@ elif [[ $input == 4 ]]; then
 
 	
 	# install cocoapods
-	#sudo gem install cocoapods
-	sudo gem install -n /usr/local/bin cocoapods
+	#sudo gem install -n /usr/local/bin cocoapods # Doesn't work in time from macOS Catalina (10.15.x)
+	brew install cocoapods 
 	# clone the repository on ~/.cocoapods/
 	pod setup
 	wait
