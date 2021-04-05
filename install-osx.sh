@@ -222,7 +222,6 @@ elif [[ $input == 6 ]]; then
 	mas install 1381004916 # Discovery - DNS-SD Browser       (2.0.3)
 	mas install 1380446739 # InjectionIII                     (1.8)
 	mas install 1102494854 # System Designer                  (4.4.0)
-	mas install 1007457278 # Realm Browser                    (3.0.1)
 	mas install 824183456  # Affinity Photo                   (1.8.1)
 	mas install 824171161  # Affinity Designer                (1.8.1)
 	mas install 461369673  # VOX: MP3 & FLAC Music Player     (3.3.17)
