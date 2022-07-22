@@ -146,7 +146,7 @@ elif [[ $input == 5 ]]; then
 	# change order on PATH environment
 	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
 	echo "PATH => $(cat $HOME/.bash_profile)"
-	printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
+#	printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
 	source $HOME/.bash_profile
 
 	# Install Oh my zsh
@@ -171,48 +171,48 @@ elif [[ $input == 6 ]]; then
 	defaults write com.apple.CrashReporter UseUNC 1
 
 	echo "install quicklook plugin"
-	brew cask install qlcolorcode
-	brew cask install qlstephen
-	brew cask install qlmarkdown
-	brew cask install quicklook-json
-	brew cask install qlprettypatch
-	brew cask install quicklook-csv
+	brew install qlcolorcode
+	brew install qlstephen
+	brew install qlmarkdown
+	brew install quicklook-json
+	brew install qlprettypatch
+	brew install quicklook-csv
 	# brew cask install betterzipql # Error: Cask 'betterzipql' is unavailable: No Cask with this name exists.
-	brew cask install webpquicklook
-	brew cask install qlimagesize
-	brew cask install suspicious-package
-	brew cask install provisionql
-	brew cask install qlvideo
+	brew install webpquicklook
+	brew install qlimagesize
+	brew install suspicious-package
+	brew install provisionql
+	brew install qlvideo
 	wait
 
 	echo "install of my softs throught cask"
-	brew cask install google-chrome # it's already installed
-	brew cask install srware-iron
-	brew cask install firefox
-	brew cask install handbrake
-	brew cask install spectacle
-	brew cask install steam
-	brew cask install sublime-text
-	brew cask install textmate
-	brew cask install vlc
-	brew cask install beardedspice
-	brew cask install spotify
-	brew cask install spotify-notifications
+#	brew cask install google-chrome # it's already installed
+#	brew cask install srware-iron
+#	brew cask install firefox
+	brew install handbrake
+	brew install spectacle
+#	brew cask install steam
+	brew install sublime-text
+	brew install textmate
+	brew install vlc
+	brew install beardedspice
+	brew install spotify
+	brew install spotify-notifications
 	# brew cask install spotifree
-	brew cask install istat-menus
-	brew cask install onyx
-	brew cask install postman
-	brew cask install 4k-video-downloader
-	brew cask install 4k-youtube-to-mp3
-	brew cask install sequential
-	brew cask install wwdc
-	brew cask install transmit
-	brew cask install aerial
-	brew cask install whatsapp
-	brew cask install flixtools
-	brew cask install motrix
-	brew cask install coconutbattery
-	brew cask install wintertime
+	brew install istat-menus
+	brew install onyx
+	brew install postman
+#	brew cask install 4k-video-downloader
+#	brew cask install 4k-youtube-to-mp3
+#	brew cask install sequential
+	brew install wwdc
+#	brew cask install transmit
+#	brew cask install aerial
+#	brew cask install whatsapp
+#	brew cask install flixtools
+#	brew cask install motrix
+	brew install coconutbattery
+#	brew cask install wintertime
 	wait
 
 	echo "install of my softs throught mas"
@@ -220,8 +220,8 @@ elif [[ $input == 6 ]]; then
 	mas install 736189492  # Notability                       (4.2.4)
 	mas install 1330801220 # Paste JSON as Code • quicktype   (8.2.22)
 	mas install 1381004916 # Discovery - DNS-SD Browser       (2.0.3)
-	mas install 1380446739 # InjectionIII                     (1.8)
-	mas install 1102494854 # System Designer                  (4.4.0)
+#	mas install 1380446739 # InjectionIII                     (1.8)
+#	mas install 1102494854 # System Designer                  (4.4.0)
 	mas install 824183456  # Affinity Photo                   (1.8.1)
 	mas install 824171161  # Affinity Designer                (1.8.1)
 	mas install 461369673  # VOX: MP3 & FLAC Music Player     (3.3.17)
