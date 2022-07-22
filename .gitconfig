@@ -4,8 +4,8 @@
 	st = status
 	br = branch
 	lg = log --oneline --graph
-	ld = diff HEAD^..HEAD
 	lga = log --oneline --abbrev-commit --all --graph --decorate --color --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
+	ld = diff HEAD^..HEAD
         ci-undo = reset --soft HEAD~1
 	rm-last-ci = reset --hard HEAD^
 	stats = diff --stat
@@ -24,3 +24,5 @@
 [user]
 	email = jeoffrey.thirot@gmail.com
 	name = Jeoffrey Thirot
+[pull]
+        rebase = true
