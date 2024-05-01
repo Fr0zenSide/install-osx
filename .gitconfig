@@ -26,3 +26,9 @@
 	name = Jeoffrey Thirot
 [pull]
         rebase = true
+[rerere]
+	enabled = true
+[column]
+	ui = auto
+[branch]
+	sort = -committerdate

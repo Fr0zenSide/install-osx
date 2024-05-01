@@ -57,7 +57,7 @@ elif [[ $input == 2 ]]; then
 
 
 	# install Homebrew
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 	tmp=$(brew -v)
 	echo '$tmp installed'
 	wait
@@ -92,11 +92,14 @@ elif [[ $input == 4 ]]; then
 	# add git alias config
 	cp .gitconfig $HOME/.gitconfig
 
-	# Inception:: install a wew OS ¯\_(ಥ‿ಥ)_/¯ 
+	# Inception:: install a new OS ¯\_(ಥ‿ಥ)_/¯ 
 	brew install emacs
 
 	# helper for see tree in terminal
 	brew install tree
+
+	# install VSCode
+	brew install --cask vscodium
 
 	# install IOS environment with cocoapods
 	# update ruby gem
@@ -150,7 +153,20 @@ elif [[ $input == 5 ]]; then
 	source $HOME/.bash_profile
 
 	# Install Oh my zsh
-	sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+	# install terminal tools
+
+	brew install tmux
+	cp .tmux.conf $HOME/.tmux.conf	
+	
+	brew install bat
+	printf "\n# Replace cat with bat\n alias cat=\"bat --paging=never\"\n" >> $HOME/.zshrc
+
+	brew install wget2
+        brew install fzf # Require zsh
+        # Set up fzf key bindings and fuzzy completion                                   
+        printf "\n# Set up fzf key bindings and fuzzy completion\neval \"\$(fzf --zsh)\"\n" >> $HOME/.zshrc
 
 
 
@@ -190,7 +206,7 @@ elif [[ $input == 6 ]]; then
 #	brew cask install srware-iron
 #	brew cask install firefox
 	brew install handbrake
-	brew install spectacle
+	brew install rectangle // swift version of spectacle
 #	brew cask install steam
 	brew install sublime-text
 	brew install textmate
