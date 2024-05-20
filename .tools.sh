@@ -1,5 +1,22 @@
 #!/bin/bash
 
+
+if ! command -v fzf &> /dev/null
+then
+    echo "fzf could not be found"
+    exit 1
+fi
+
+alias l="ls -A  | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n'"
+alias lc="ls -A | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n' | tee >(pbcopy) | (xargs -0 printf \"Filename: %s was copied in clipboard\")"
+
+
+if ! command -v tmux &> /dev/null
+then
+    echo "tmux could not be found"
+    exit 1
+fi
+
 # Launch tmux to attach a session or window already exist
 ts () { tmux attach -t "$(tmux list-sessions | fzf -m --header "Choose a session:" | awk -F: '{print $1}')" }
 tw () { tmux a -t "$(tmux list-windows -a | fzf -m --header "Choose a session:" | awk '{print substr($1, 1, length($1)-1)}')" }

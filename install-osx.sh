@@ -146,6 +146,19 @@ elif [[ $input == 5 ]]; then
 
 
 
+    # Use bash setting
+    echo '# Load bash profile if it exist' >> $HOME/.zshrc
+    echo 'if [ -f ~/.bash_profile ]; then '  >> $HOME/.zshrc
+    echo '    . ~/.bash_profile;'  >> $HOME/.zshrc
+    echo 'fi'  >> $HOME/.zshrc
+    echo ''  >> $HOME/.zshrc
+    
+    # Set default editor
+    echo '# Setup default code editors' >> $HOME/.zshrc
+    echo 'export EDITOR=emacs' >> $HOME/.zshrc
+    echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
+    echo '' >> $HOME/.zshrc
+    
 	# Change order on PATH environment
 	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
 	echo "PATH => $(cat $HOME/.bash_profile)"
@@ -156,7 +169,7 @@ elif [[ $input == 5 ]]; then
 	# Install Oh my zsh
 	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-	cd ~/.oh-my-zsh/custom/plugins
+	cd $HOME/.oh-my-zsh/custom/plugins
 	git clone https://github.com/zsh-users/zsh-autosuggestions.git
 	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
 	# replace plugins in ~/.zshrc with sed :
@@ -165,7 +178,7 @@ elif [[ $input == 5 ]]; then
 	#   zsh-autosuggestions
 	#   zsh-syntax-highlighting
 	# )
-	sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' ~/.zshrc
+	sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
 	
 	
 	# Install terminal tools
@@ -176,7 +189,7 @@ elif [[ $input == 5 ]]; then
 
 	# add tools.sh to have my tmux tools
 	cp .tools.sh $HOME/.tools.sh
-	printf "\n# link .tools.sh with zsh func\n source=~/.tools.sh\n" >> $HOME/.zshrc
+	printf "\n# link .tools.sh with zsh func\n source ~/.tools.sh\n" >> $HOME/.zshrc
 	
 	brew install bat
 	printf "\n# Replace cat with bat\n alias cat=\"bat --paging=never\"\n" >> $HOME/.zshrc
