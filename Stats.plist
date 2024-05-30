@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Battery_position</key>
+	<integer>6</integer>
+	<key>Battery_state</key>
+	<false/>
+	<key>Bluetooth_position</key>
+	<integer>7</integer>
+	<key>CPU_barChart_position</key>
+	<integer>0</integer>
+	<key>CPU_label_position</key>
+	<integer>1</integer>
+	<key>CPU_lineChart_position</key>
+	<integer>3</integer>
+	<key>CPU_mini_position</key>
+	<integer>2</integer>
+	<key>CPU_pieChart_position</key>
+	<integer>4</integer>
+	<key>CPU_position</key>
+	<integer>2</integer>
+	<key>CPU_tachometer_position</key>
+	<integer>5</integer>
+	<key>CPU_widget</key>
+	<string>bar_chart</string>
+	<key>Clock_position</key>
+	<integer>8</integer>
+	<key>CombinedModules</key>
+	<true/>
+	<key>CombinedModules_popup</key>
+	<false/>
+	<key>CombinedModules_spacing</key>
+	<string>none</string>
+	<key>Disk_position</key>
+	<integer>4</integer>
+	<key>Disk_state</key>
+	<false/>
+	<key>GPU_position</key>
+	<integer>1</integer>
+	<key>NSNavPanelExpandedSizeForSaveMode</key>
+	<string>{800, 448}</string>
+	<key>NSNavPanelExpandedStateForSaveMode</key>
+	<true/>
+	<key>NSStatusItem Preferred Position CombinedModules</key>
+	<real>391</real>
+	<key>NSWindow Frame NSNavPanelAutosaveName</key>
+	<string>454 386 800 448 0 0 1710 1068 </string>
+	<key>Network_VPNMode</key>
+	<false/>
+	<key>Network_position</key>
+	<integer>0</integer>
+	<key>Network_reader</key>
+	<string>interface</string>
+	<key>RAM_barChart_position</key>
+	<integer>0</integer>
+	<key>RAM_label_position</key>
+	<integer>1</integer>
+	<key>RAM_lineChart_position</key>
+	<integer>3</integer>
+	<key>RAM_memory_position</key>
+	<integer>5</integer>
+	<key>RAM_mini_position</key>
+	<integer>2</integer>
+	<key>RAM_pieChart_position</key>
+	<integer>4</integer>
+	<key>RAM_position</key>
+	<integer>3</integer>
+	<key>RAM_splitValue</key>
+	<true/>
+	<key>RAM_tachometer_position</key>
+	<integer>6</integer>
+	<key>RAM_widget</key>
+	<string>bar_chart</string>
+	<key>Sensors_position</key>
+	<integer>5</integer>
+	<key>runAtLoginInitialized</key>
+	<true/>
+	<key>setupProcess</key>
+	<true/>
+	<key>telemetry</key>
+	<false/>
+	<key>update-interval</key>
+	<string>At start</string>
+	<key>updater_check_ts</key>
+	<integer>1715328621</integer>
+	<key>version</key>
+	<string>2.10.12</string>
+</dict>
+</plist>

@@ -178,7 +178,8 @@ elif [[ $input == 5 ]]; then
 	#   zsh-autosuggestions
 	#   zsh-syntax-highlighting
 	# )
-	sed -i 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
+
+	sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
 	
 	
 	# Install terminal tools
@@ -189,15 +190,21 @@ elif [[ $input == 5 ]]; then
 
 	# add tools.sh to have my tmux tools
 	cp .tools.sh $HOME/.tools.sh
-	printf "\n# link .tools.sh with zsh func\n source ~/.tools.sh\n" >> $HOME/.zshrc
+
+	printf "\n# link .tools.sh with zsh func\nsource ~/.tools.sh\n" >> $HOME/.zshrc
 	
 	brew install bat
 	printf "\n# Replace cat with bat\n alias cat=\"bat --paging=never\"\n" >> $HOME/.zshrc
 
-	brew install wget2
+	# brew install wget2
         brew install fzf # Require zsh
         # Set up fzf key bindings and fuzzy completion                                   
         printf "\n# Set up fzf key bindings and fuzzy completion\neval \"\$(fzf --zsh)\"\n" >> $HOME/.zshrc
+
+	# When you setup your project with a git repo for daily tasks
+	# go to project forlder
+	# launch $ git maintenance start
+	# now git prefetch automatically the remote code
 
 
 
@@ -238,6 +245,7 @@ elif [[ $input == 6 ]]; then
 #	brew cask install firefox
 	brew install handbrake
 	brew install rectangle // swift version of spectacle
+	brew install MonitorControl
 #	brew cask install steam
 	brew install sublime-text
 	brew install textmate
@@ -247,6 +255,7 @@ elif [[ $input == 6 ]]; then
 	brew install spotify-notifications
 	# brew cask install spotifree
 	brew install istat-menus
+#	brew install stats # open source alternative to istat-menus
 	brew install onyx
 	brew install postman
 #	brew cask install 4k-video-downloader
