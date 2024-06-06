@@ -1,6 +1,6 @@
 import = [
-       #"~/.config/alacritty/catppuccin-frappe.toml"
-       "~/.config/alacritty/catppuccin-macchiato.toml"
+       "~/.config/alacritty/catppuccin-frappe.toml"
+       #"~/.config/alacritty/catppuccin-macchiato.toml"
        #"~/.config/alacritty/catppuccin-mocha.toml"
 ]
 
@@ -8,7 +8,7 @@ import = [
 [font]
 
 # Point size
-size = 13.0
+size = 14.0
 
 [window]
 padding.x = 10
@@ -16,5 +16,5 @@ padding.y = 10
 
 decorations = "ButtonLess"
 
-opacity = 0.6
+opacity = 0.7
 blur = true
