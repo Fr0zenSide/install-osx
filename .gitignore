@@ -2,5 +2,8 @@
 # .gitignore file for OS X System
 #########################
 
+# Mac Os X
+.DS_Store
+
 # Emacs temporary files
 *~
