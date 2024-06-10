@@ -175,6 +175,11 @@ elif [[ $input == 5 ]]; then
 	# Change order on PATH environment
 	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
 	echo "PATH => $(cat $HOME/.bash_profile)"
+
+	## add brew in PATH
+	printf '\nPATH=/opt/homebrew/bin/:/opt/homebrew/:/opt/homebrew/Cellar/:$PATH' >> $HOME/.zshrc
+	printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+
 #	printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
 	source $HOME/.bash_profile
 
@@ -201,17 +206,18 @@ elif [[ $input == 5 ]]; then
 	
 	# Install terminal tools
 	brew install tmux
+	# with stow you don't need to copy this dotfile anymore
 	# cp .tmux.conf $HOME/.tmux.conf
 	# enable copy and paste in tmux
 	brew install reattach-to-user-namespace
 
-	# add tools.sh to have my tmux tools
+	# tools.sh is my custom tools like tmux function
+	# with stow you don't need to copy this script anymore
 	# cp .tools.sh $HOME/dotfiles/tools.sh
+	printf "\n# link .tools.sh with zsh func\nsource ~/.config/scripts/tools.sh\n" >> $HOME/.zshrc
 
-	printf "\n# link tools.sh with zsh func\nsource ~/dotfiles/tools.sh\n" >> $HOME/.zshrc
-	
 	brew install bat
-	printf "\n# Replace cat with bat\n alias cat=\"bat --paging=never --plain\"\n" >> $HOME/.zshrc
+	printf "\n# Replace cat with bat\nalias cat=\"bat --paging=never --plain\"\n" >> $HOME/.zshrc
 
 	# brew install wget2
         brew install fzf # Require zsh

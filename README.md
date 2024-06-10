@@ -26,3 +26,11 @@ To launch the installations you need to launch on the project folder, the instal
 ````sh
 sh ./install-osx.sh
 ```
+
+# Stow (symlink magic)
+You can use GNU stow to create symlinks of dotfiles in home directory
+```sh
+brew install stow
+cd dotfiles
+stow -t ~/ .
+```
