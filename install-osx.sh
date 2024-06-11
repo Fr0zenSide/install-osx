@@ -211,6 +211,11 @@ elif [[ $input == 5 ]]; then
 	# enable copy and paste in tmux
 	brew install reattach-to-user-namespace
 
+	# Minimal tmux setup (install tmux package manager + source new conf)
+	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	tmux source ~/.config/.tmux.conf
+	tmux set-option -g display-time 4000
+
 	# tools.sh is my custom tools like tmux function
 	# with stow you don't need to copy this script anymore
 	# cp .tools.sh $HOME/dotfiles/tools.sh
@@ -286,6 +291,7 @@ elif [[ $input == 6 ]]; then
 	brew install handbrake
 	brew install rectangle // swift version of spectacle
 	brew install MonitorControl
+	brew install meetingbar
 #	brew cask install steam
 	brew install sublime-text
 	brew install textmate
