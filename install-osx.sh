@@ -284,8 +284,9 @@ elif [[ $input == 6 ]]; then
 	brew install qlvideo
 	wait
 
-	echo "install of my softs throught cask"
+	echo "install of my softs throught cask"	
 #	brew cask install google-chrome # it's already installed
+	brew install eloston-chromium
 #	brew cask install srware-iron
 #	brew cask install firefox
 	brew install handbrake
