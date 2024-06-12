@@ -6,6 +6,7 @@
 	lg = log --oneline --graph
 	lga = log --oneline --abbrev-commit --all --graph --decorate --color --pretty=format:'%C(auto)%h%C(auto)%d %s %C(dim white)(%aN, %ar)'
 	ld = diff HEAD^..HEAD
+	lf = diff-tree --no-commit-id --name-only HEAD -r
         ci-undo = reset --soft HEAD~1
 	rm-last-ci = reset --hard HEAD^
 	stats = diff --stat
