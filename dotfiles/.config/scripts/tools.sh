@@ -23,6 +23,7 @@ then
     exit 1
 fi
 
+
 alias l="ls -A  | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n'"
 alias lc="ls -A | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n' | tee >(pbcopy) | (xargs -0 printf \"Filename: %s was copied in clipboard\")"
 
@@ -32,6 +33,20 @@ then
     echo "tmux could not be found"
     exit 1
 fi
+
+
+# Script to open tmux popup (called with M-f)
+toggle-tmux-popup () {
+    tmux_popup_session_name="_popup"
+
+    if [ "$(tmux display-message -p -F "#{session_name}")" = "${tmux_popup_session_name}" ];then
+	tmux detach-client
+    else
+	tmux popup -d '#{pane_current_path}' -xC -yC -w80% -h80% -E\
+	     "tmux new-session -A -s ${tmux_popup_session_name}"
+    fi
+}
+
 
 # Launch tmux to attach a session or window already exist
 ts () { tmux attach -t "$(tmux list-sessions | fzf -m --header "Choose a session:" | awk -F: '{print $1}')" }
