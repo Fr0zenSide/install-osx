@@ -251,6 +251,13 @@ elif [[ $input == 5 ]]; then
 	# launch $ git maintenance start
 	# now git prefetch automatically the remote code
 
+	# Create workspaces and add symlinks to go fast to xcode folders (cd ~/.wsx)
+
+	mkdir -p ~/Documents/Workspaces/xcode
+	ln -s ~/Documents/Workspaces/ ~/.ws
+	ln -s ~/Documents/Workspaces/xcode/ ~/.wsx
+	
+
 
 
 # Install softwares with cask

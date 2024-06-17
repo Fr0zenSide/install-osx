@@ -17,14 +17,20 @@ ssh-keygen -t rsa -C "your_email@example.com"
 
 # Copies the contents of the id_rsa.pub file to your clipboard
 pbcopy < ~/.ssh/id_rsa.pub
+```
+
+```sh
+# Create Workspace
+mkdir -p ~/Documents/Workspaces/devops
+cd ~/Documents/Workspaces/devops
 
 # Clone the repository
 git clone git@github.com:Fr0zenSide/install-osx.git
-```
 
-To launch the installations you need to launch on the project folder, the install script :
-````sh
+# To launch the installations you need to launch on the project folder, the install script
+cd install-osx
 sh ./install-osx.sh
+
 ```
 
 # Stow (symlink magic)
