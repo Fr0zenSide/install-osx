@@ -40,3 +40,8 @@ brew install stow
 cd dotfiles
 stow -t ~/ .
 ```
+
+```sh
+# if you want to cleani up symbolic links stow add in home folder
+stow -D .
+```
