@@ -277,6 +277,9 @@ elif [[ $input == 6 ]]; then
 	defaults write com.apple.CrashReporter UseUNC 1
 
 	echo "install quicklook plugin"
+	brew install --no-quarantine syntax-highlight
+	brew install --no-quarantine qlmarkdown
+	
 	brew install qlcolorcode
 	brew install qlstephen
 	brew install qlmarkdown
