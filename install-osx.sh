@@ -12,10 +12,10 @@ echo ""
 unset input
 echo "###  Do you want to do? "
 echo "##   1 - Install Command Line Tools in MacOS"
-echo "##   2 - Install Homebrew"
-echo "##   3 - Install Xcode* (require Homebrew)"
+echo "##   2 - Install Homebrew, Oh my zsh and my terminal env (emacs, tmux, fzf, kitty, etc.)"
+echo "##   3 - Install xcodes (via brew)"
 echo "##   4 - Setup iOS environment* (require Xcode & Homebrew)"
-echo "##   5 - Install Oh my zsh"
+echo "##   5 - Install nothing anymore"
 echo "##   6 - Setup MacOS & Install softwares with cask & mas"
 printf "##   >   "
 read input
@@ -52,7 +52,7 @@ if [[ $input == 1 ]]; then
 
 
 
-# Install brew
+# Install brew / oh my zsh / terminal env
 elif [[ $input == 2 ]]; then 
 
 
@@ -61,29 +61,154 @@ elif [[ $input == 2 ]]; then
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     eval "$(/opt/homebrew/bin/brew shellenv)"
 
-    # add this line in bash profile or .zshrc
-    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
-
     tmp=$(brew -v)
     echo '$tmp installed'
-    wait
 
+    
+    # Inception:: install a new OS ¯\_(ಥ‿ಥ)_/¯ 
+    brew install emacs
+    brew services start emacs 
+
+    
+    # install oh my zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    
+    # add brew to zshrc
+    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+
+
+    # add git alias config
+    # Keep to copy gitconfig instead to add in dotfiles
+    # 'coz when you add [maintenance]
+    # $ git maintenance start ~/workspaces/repo_folder
+    # your .gitconfig depend of the project your listen with maintenance
+    cp .gitconfig $HOME/.gitconfig
+
+    
+    # helper for regexp and fzf search in terminal
+    brew install tre
+
+    
+    echo "install oh my zsh plugins"
+    cd $HOME/.oh-my-zsh/custom/plugins
+    git clone https://github.com/zsh-users/zsh-completions.git
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+    cd $DIR
+    echo "Apply installed omz pluglins in .zshrc"
+
+    echo "\n# add zsh-completions to source path of zsh\n" >> $HOME/.zshrc
+    echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
+    # replace plugins in ~/.zshrc with sed :
+    # plugins=(
+    #   git
+    #   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
+    #   zsh-autosuggestions
+    #   zsh-syntax-highlighting
+    # )
+    sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
+    
+    
+    # Set default editor
+    echo '\n# Setup default code editors' >> $HOME/.zshrc
+    echo 'export EDITOR=emacs' >> $HOME/.zshrc
+    echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
+
+    
+    # use GNU stow to create symlinks of dotfiles in home directory
+    brew install stow
+    cd dotfiles && stow -t ~/ . && cd ../
+
+    
+    # Install terminal tools
+    brew install tmux
+    # with stow you don't need to copy this dotfile anymore
+    # cp .tmux.conf $HOME/.tmux.conf
+    # enable copy and paste in tmux
+    brew install reattach-to-user-namespace
+
+    # Minimal tmux setup (install tmux package manager + source new conf)
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    tmux source ~/.config/.tmux.conf
+    tmux set-option -g display-time 4000
+
+    
+    # tools.sh is my custom tools like tmux function
+    # with stow you don't need to copy this script anymore
+    # cp .tools.sh $HOME/dotfiles/tools.sh
+    echo '\n# link .tools.sh with zsh func' >> $HOME/.zshrc
+    echo 'source ~/.config/scripts/tools.sh' >> $HOME/.zshrc
+
+    
+    brew install bat
+    echo '\n# Replace cat with bat' >> $HOME/.zshrc
+    echo 'alias cat="bat --paging=never --plain"' >> $HOME/.zshrc
+
+    
+    # brew install wget2
+    brew install fzf # Require zsh
+    # Set up fzf key bindings and fuzzy completion                                   
+    echo "\n# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
+    echo 'eval $(fzf --zsh)' >> $HOME/.zshrc
+
+    
+    # install thefuck to auto fix typo in cli
+    # you have custom alias with ff in tools.sh
+    brew install thefuck
+    echo "\n# thefuck alias binding => fuck()" >> $Home/.zshrc
+    echo 'eval $(thefuck --alias)' >> $HOME/.zshrc
+
+    
+    # install btop => a better htop
+    brew install btop
+
+    
+    # install my new terminal ? => alacritty
+    # brew install alacritty
+
+    
+    # install my new terminal ? => kitty
+    brew install kitty	
+
+        
+    # helper for see tree in terminal
+    # brew install tree
+
+    
+    # Create workspaces and add symlinks to go fast to xcode folders (cd ~/.wsx)
+
+    mkdir -p ~/Documents/Workspaces/xcode
+    ln -s ~/Documents/Workspaces/ ~/.ws
+    ln -s ~/Documents/Workspaces/xcode/ ~/.wsx
+    echo "Symlinks to Wokspaces added to env (~/.ws & ~/.wsx)"
+    
+    
+    # When you setup your project with a git repo for daily tasks
+    # go to project forlder
+    # launch $ git maintenance start
+    # now git prefetch automatically the remote code
+    echo "------------------------------------------------"
+    echo ""
+    echo "------------------- Tips -----------------------"
+    echo ""
+    echo "To track a project with git in your daily flow"
+    echo "Move to the root project & use git maintenance:"
+    echo ""
+    echo "$ cd ~/wsx/plop && git maintenance start"
+    echo ""
+    echo "------------------------------------------------"
+
+    
+    # source updated .zshrc file
+    source $HOME/.zshrc
+    wait
     echo 'command line tools is installed'
 
 
 
-# Install Xcode* (require Homebrew)
+# Install xcodes (require Homebrew)
 elif [[ $input == 3 ]]; then 
 
-
-    # OLD way
-    # intall MAS (Mac App Store command line interface)
-    # brew install mas
-    # mas install 497799835 # identifier of xcode => mas search xcode
-    # we can also use mas lucky xcode => but the day your have another app in first result, you don't install xcode 😅
-    # You have to agree the Xcode license. Please resolve this by running:
-    # echo 'You have to agree the Xcode license. Please enter the admin password. \nRunning > $sudo xcodebuild -license accept'
-    # sudo xcodebuild -license accept
 
     # install xcodes
     brew install --cask xcodes
@@ -94,20 +219,6 @@ elif [[ $input == 3 ]]; then
 elif [[ $input == 4 ]]; then 
 
 
-
-    # add git alias config
-    # Keep to copy gitconfig instead to add in dotfiles
-    # 'coz when you add [maintenance]
-    # $ git maintenance start ~/workspaces/repo_folder
-    # your .gitconfig depend of the project your listenen with maintenance
-    cp .gitconfig $HOME/.gitconfig
-    
-    # Inception:: install a new OS ¯\_(ಥ‿ಥ)_/¯ 
-    brew install emacs
-
-    # helper for see tree in terminal
-    # brew install tree
-    brew install tre
 
     # install VSCode
     brew install --cask vscodium
@@ -156,150 +267,12 @@ elif [[ $input == 4 ]]; then
 
 
 
-# Install Oh my zsh
+# Install Nothing anymore
 elif [[ $input == 5 ]]; then 
 
 
 
-    # install oh my zsh
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
 
-    echo "install oh my zsh plugins"
-    cd $HOME/.oh-my-zsh/custom/plugins
-    git clone https://github.com/zsh-users/zsh-completions.git
-    git clone https://github.com/zsh-users/zsh-autosuggestions.git
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-    cd $DIR
-    echo "Apply installed omz pluglins in .zshrc"
-
-    echo "\n# add zsh-completions to source path of zsh\n" >> $HOME/.zshrc
-    echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
-    # replace plugins in ~/.zshrc with sed :
-    # plugins=(
-    #   git
-    #   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
-    #   zsh-autosuggestions
-    #   zsh-syntax-highlighting
-    # )
-    sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
-
-    
-
-    #        ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️
-    #
-    # FIXME: 👇 Rework path and profiles👇
-    #
-    #           It's looks 🤢 🤮 🤮 🤢 !
-    #
-    #        ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️
-    
-#    # Use bash setting
-#    echo '# Load bash profile if it exist' >> $HOME/.zshrc
-#    echo 'if [ -f ~/.bash_profile ]; then '  >> $HOME/.zshrc
-#    echo '    . ~/.bash_profile;'  >> $HOME/.zshrc
-#    echo 'fi'  >> $HOME/.zshrc
-#    echo ''  >> $HOME/.zshrc
-#    
-    # Set default editor
-    echo '\n# Setup default code editors' >> $HOME/.zshrc
-    echo 'export EDITOR=emacs' >> $HOME/.zshrc
-    echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
-#    echo '' >> $HOME/.zshrc
-#    
-#	# Change order on PATH environment
-#	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
-#	echo "PATH => $(cat $HOME/.bash_profile)"
-#
-#	## add brew in PATH
-#	printf '\nPATH=/opt/homebrew/bin/:/opt/homebrew/:/opt/homebrew/Cellar/:$PATH' >> $HOME/.zshrc
-#	printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
-#
-#	printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
-#	source $HOME/.bash_profile
-#
-#
-#	# Install Oh my zsh
-#	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-#
-#	cd $HOME/.oh-my-zsh/custom/plugins
-#	git clone https://github.com/zsh-users/zsh-completions.git
-#	git clone https://github.com/zsh-users/zsh-autosuggestions.git
-#	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-#	cd $DIR
-#	echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
-#	# replace plugins in ~/.zshrc with sed :
-#	# plugins=(
-#	#   git
-#	#   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
-#	#   zsh-autosuggestions
-#	#   zsh-syntax-highlighting
-#	# )
-#
-#	sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
-	
-	
-	# use GNU stow to create symlinks of dotfiles in home directory
-	brew install stow
-	cd dotfiles && stow -t ~/ . && cd ../
-	
-	# Install terminal tools
-	brew install tmux
-	# with stow you don't need to copy this dotfile anymore
-	# cp .tmux.conf $HOME/.tmux.conf
-	# enable copy and paste in tmux
-	brew install reattach-to-user-namespace
-
-	# Minimal tmux setup (install tmux package manager + source new conf)
-	git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-	tmux source ~/.config/.tmux.conf
-	tmux set-option -g display-time 4000
-
-	# tools.sh is my custom tools like tmux function
-	# with stow you don't need to copy this script anymore
-	# cp .tools.sh $HOME/dotfiles/tools.sh
-	echo '\n# link .tools.sh with zsh func' >> $HOME/.zshrc
-	echo 'source ~/.config/scripts/tools.sh' >> $HOME/.zshrc
-	
-	brew install bat
-	echo '\n# Replace cat with bat' >> $HOME/.zshrc
-	echo 'alias cat="bat --paging=never --plain"' >> $HOME/.zshrc
-
-	# brew install wget2
-        brew install fzf # Require zsh
-        # Set up fzf key bindings and fuzzy completion                                   
-	echo "\n# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
-	echo 'eval $(fzf --zsh)' >> $HOME/.zshrc
-
-	# install thefuck to auto fix typo in cli
-	# you have custom alias with ff in tools.sh
-	brew install thefuck
-	echo "\n# thefuck alias binding => fuck()" >> $Home/.zshrc
-	echo 'eval $(thefuck --alias)' >> $HOME/.zshrc
-
-	# install btop => a better htop
-	brew install btop
-
-	# install my new terminal ? => alacritty
-	brew install alacritty
-
-	# install my new terminal ? => kitty
-	brew install kitty	
-		
-	# When you setup your project with a git repo for daily tasks
-	# go to project forlder
-	# launch $ git maintenance start
-	# now git prefetch automatically the remote code
-
-	# Create workspaces and add symlinks to go fast to xcode folders (cd ~/.wsx)
-
-	mkdir -p ~/Documents/Workspaces/xcode
-	ln -s ~/Documents/Workspaces/ ~/.ws
-	ln -s ~/Documents/Workspaces/xcode/ ~/.wsx
-	
-	# source updated .zshrc file
-	source $HOME/.zshrc
-       
 
 
 # Install softwares with cask
@@ -322,14 +295,8 @@ elif [[ $input == 6 ]]; then
 	brew install --no-quarantine syntax-highlight
 	brew install --no-quarantine qlmarkdown
 	
-#	brew install qlcolorcode
-#	brew install qlstephen
-#	brew install quicklook-json
-#	brew install qlprettypatch
 	brew install quicklook-csv
 	# brew cask install betterzipql # Error: Cask 'betterzipql' is unavailable: No Cask with this name exists.
-#	brew install webpquicklook
-#	brew install qlimagesize
 	brew install suspicious-package
 	brew install apparency
 	brew install provisionql
@@ -338,7 +305,6 @@ elif [[ $input == 6 ]]; then
 
 	echo "install of my softs throught cask"
 	brew install slack
-#	brew cask install google-chrome # it's already installed
 	brew install eloston-chromium
 #	brew cask install srware-iron
 #	brew cask install firefox
@@ -347,24 +313,21 @@ elif [[ $input == 6 ]]; then
 	brew install MonitorControl
 	brew install meetingbar
 #	brew cask install steam
-	brew install sublime-text
-	brew install textmate
+#	brew install sublime-text
+#	brew install textmate
 	brew install vlc
-	brew install beardedspice
-	brew install spotify
-	brew install spotify-notifications
+#	brew install beardedspice
+#	brew install spotify
+#	brew install spotify-notifications
 	# brew cask install spotifree
 	brew install istat-menus
 #	brew install stats # open source alternative to istat-menus
 	brew install onyx
 	brew install postman
-#	brew cask install 4k-video-downloader
-#	brew cask install 4k-youtube-to-mp3
 #	brew cask install sequential
 	brew install wwdc
 #	brew cask install transmit
 #	brew cask install aerial
-#	brew cask install whatsapp
 #	brew cask install flixtools
 #	brew cask install motrix
 	brew install coconutbattery
@@ -383,7 +346,7 @@ elif [[ $input == 6 ]]; then
 	mas install 824171161  # Affinity Designer                (1.8.1)
 	mas install 461369673  # VOX: MP3 & FLAC Music Player     (3.3.17)
 	# TODO: Add my new tools of productivity
-	mas lucky "Planny 3 Listes intelligentes"
+#	mas lucky "Planny 3 Listes intelligentes"
 	mas lucky "Tot"
 	wait
 	
