@@ -7,3 +7,6 @@
 
 # Emacs temporary files
 *~
+
+# ignore thefuck alias folder it's created when thefuck is installed
+dotfiles/.config/thefuck

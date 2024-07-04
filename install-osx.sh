@@ -56,17 +56,19 @@ if [[ $input == 1 ]]; then
 elif [[ $input == 2 ]]; then 
 
 
-	# install Homebrew
-	/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-	tmp=$(brew -v)
-	echo '$tmp installed'
-	wait
+    
+    # install Homebrew
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 
+    # add this line in bash profile or .zshrc
+    # echo 'eval "$(/opt/homebrew/bin/brew shellenv)"'
 
+    tmp=$(brew -v)
+    echo '$tmp installed'
+    wait
 
-	#echo "Xcode is installed :  $input"
-
-	echo 'command line tools is installed'
+    echo 'command line tools is installed'
 
 
 
@@ -84,7 +86,7 @@ elif [[ $input == 3 ]]; then
     # sudo xcodebuild -license accept
 
     # install xcodes
-    brew install xcodes
+    brew install --cask xcodes
     open /Applications/Xcodes.app
 
 
@@ -140,7 +142,7 @@ elif [[ $input == 4 ]]; then
     brew install sourcery
 
     # install command-line to generate your project’s documentation 
-    gem install jazzy
+    # gem install jazzy
 
     # install SwiftLint to enforce Swift style and conventions
     brew install swiftlint
@@ -159,50 +161,87 @@ elif [[ $input == 5 ]]; then
 
 
 
-    # Use bash setting
-    echo '# Load bash profile if it exist' >> $HOME/.zshrc
-    echo 'if [ -f ~/.bash_profile ]; then '  >> $HOME/.zshrc
-    echo '    . ~/.bash_profile;'  >> $HOME/.zshrc
-    echo 'fi'  >> $HOME/.zshrc
-    echo ''  >> $HOME/.zshrc
+    # install oh my zsh
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+    printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+
+    echo "install oh my zsh plugins"
+    cd $HOME/.oh-my-zsh/custom/plugins
+    git clone https://github.com/zsh-users/zsh-completions.git
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+    cd $DIR
+    echo "Apply installed omz pluglins in .zshrc"
+
+    echo "\n# add zsh-completions to source path of zsh\n" >> $HOME/.zshrc
+    echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
+    # replace plugins in ~/.zshrc with sed :
+    # plugins=(
+    #   git
+    #   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
+    #   zsh-autosuggestions
+    #   zsh-syntax-highlighting
+    # )
+    sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
+
     
+
+    #        ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️
+    #
+    # FIXME: 👇 Rework path and profiles👇
+    #
+    #           It's looks 🤢 🤮 🤮 🤢 !
+    #
+    #        ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️  ⚠️
+    
+#    # Use bash setting
+#    echo '# Load bash profile if it exist' >> $HOME/.zshrc
+#    echo 'if [ -f ~/.bash_profile ]; then '  >> $HOME/.zshrc
+#    echo '    . ~/.bash_profile;'  >> $HOME/.zshrc
+#    echo 'fi'  >> $HOME/.zshrc
+#    echo ''  >> $HOME/.zshrc
+#    
     # Set default editor
-    echo '# Setup default code editors' >> $HOME/.zshrc
+    echo '\n# Setup default code editors' >> $HOME/.zshrc
     echo 'export EDITOR=emacs' >> $HOME/.zshrc
     echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
-    echo '' >> $HOME/.zshrc
-    
-	# Change order on PATH environment
-	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
-	echo "PATH => $(cat $HOME/.bash_profile)"
-
-	## add brew in PATH
-	printf '\nPATH=/opt/homebrew/bin/:/opt/homebrew/:/opt/homebrew/Cellar/:$PATH' >> $HOME/.zshrc
-	printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
-
+#    echo '' >> $HOME/.zshrc
+#    
+#	# Change order on PATH environment
+#	printf "\nexport PATH=/usr/local/bin:/usr/local/sbin:\$PATH\n" >> $HOME/.bash_profile
+#	echo "PATH => $(cat $HOME/.bash_profile)"
+#
+#	## add brew in PATH
+#	printf '\nPATH=/opt/homebrew/bin/:/opt/homebrew/:/opt/homebrew/Cellar/:$PATH' >> $HOME/.zshrc
+#	printf '\neval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
+#
 #	printf "\nalias tree=\"find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'\"\n" >> $HOME/.bash_profile
-	source $HOME/.bash_profile
-
-
-	# Install Oh my zsh
-	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-	cd $HOME/.oh-my-zsh/custom/plugins
-	git clone https://github.com/zsh-users/zsh-completions.git
-	git clone https://github.com/zsh-users/zsh-autosuggestions.git
-	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
-	cd $DIR
-	echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src\\n" >> $HOME/.zshrc
-	# replace plugins in ~/.zshrc with sed :
-	# plugins=(
-	#   git
-	#   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
-	#   zsh-autosuggestions
-	#   zsh-syntax-highlighting
-	# )
-
-	sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
+#	source $HOME/.bash_profile
+#
+#
+#	# Install Oh my zsh
+#	sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#
+#	cd $HOME/.oh-my-zsh/custom/plugins
+#	git clone https://github.com/zsh-users/zsh-completions.git
+#	git clone https://github.com/zsh-users/zsh-autosuggestions.git
+#	git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+#	cd $DIR
+#	echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
+#	# replace plugins in ~/.zshrc with sed :
+#	# plugins=(
+#	#   git
+#	#   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
+#	#   zsh-autosuggestions
+#	#   zsh-syntax-highlighting
+#	# )
+#
+#	sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
 	
+	
+	# use GNU stow to create symlinks of dotfiles in home directory
+	brew install stow
+	cd dotfiles && stow -t ~/ . && cd ../
 	
 	# Install terminal tools
 	brew install tmux
@@ -219,19 +258,24 @@ elif [[ $input == 5 ]]; then
 	# tools.sh is my custom tools like tmux function
 	# with stow you don't need to copy this script anymore
 	# cp .tools.sh $HOME/dotfiles/tools.sh
-	printf "\n# link .tools.sh with zsh func\nsource ~/.config/scripts/tools.sh\n" >> $HOME/.zshrc
-
+	echo '\n# link .tools.sh with zsh func' >> $HOME/.zshrc
+	echo 'source ~/.config/scripts/tools.sh' >> $HOME/.zshrc
+	
 	brew install bat
-	printf "\n# Replace cat with bat\nalias cat=\"bat --paging=never --plain\"\n" >> $HOME/.zshrc
+	echo '\n# Replace cat with bat' >> $HOME/.zshrc
+	echo 'alias cat="bat --paging=never --plain"' >> $HOME/.zshrc
 
 	# brew install wget2
         brew install fzf # Require zsh
         # Set up fzf key bindings and fuzzy completion                                   
-        printf "\n# Set up fzf key bindings and fuzzy completion\neval \"\$(fzf --zsh)\"\n" >> $HOME/.zshrc
+	echo "\n# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
+	echo 'eval $(fzf --zsh)' >> $HOME/.zshrc
 
 	# install thefuck to auto fix typo in cli
 	# you have custom alias with ff in tools.sh
 	brew install thefuck
+	echo "\n# thefuck alias binding => fuck()" >> $Home/.zshrc
+	echo 'eval $(thefuck --alias)' >> $HOME/.zshrc
 
 	# install btop => a better htop
 	brew install btop
@@ -240,11 +284,7 @@ elif [[ $input == 5 ]]; then
 	brew install alacritty
 
 	# install my new terminal ? => kitty
-	brew install kitty
-
-	# use GNU stow to create symlinks of dotfiles in home directory
-	brew install stow
-	cd dotfiles && stow . && cd ../
+	brew install kitty	
 		
 	# When you setup your project with a git repo for daily tasks
 	# go to project forlder
@@ -257,7 +297,9 @@ elif [[ $input == 5 ]]; then
 	ln -s ~/Documents/Workspaces/ ~/.ws
 	ln -s ~/Documents/Workspaces/xcode/ ~/.wsx
 	
-
+	# source updated .zshrc file
+	source $HOME/.zshrc
+       
 
 
 # Install softwares with cask
@@ -280,21 +322,22 @@ elif [[ $input == 6 ]]; then
 	brew install --no-quarantine syntax-highlight
 	brew install --no-quarantine qlmarkdown
 	
-	brew install qlcolorcode
-	brew install qlstephen
-	brew install qlmarkdown
-	brew install quicklook-json
-	brew install qlprettypatch
+#	brew install qlcolorcode
+#	brew install qlstephen
+#	brew install quicklook-json
+#	brew install qlprettypatch
 	brew install quicklook-csv
 	# brew cask install betterzipql # Error: Cask 'betterzipql' is unavailable: No Cask with this name exists.
-	brew install webpquicklook
-	brew install qlimagesize
+#	brew install webpquicklook
+#	brew install qlimagesize
 	brew install suspicious-package
+	brew install apparency
 	brew install provisionql
 	brew install qlvideo
 	wait
 
-	echo "install of my softs throught cask"	
+	echo "install of my softs throught cask"
+	brew install slack
 #	brew cask install google-chrome # it's already installed
 	brew install eloston-chromium
 #	brew cask install srware-iron
