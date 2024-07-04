@@ -10,3 +10,7 @@
 
 # ignore thefuck alias folder it's created when thefuck is installed
 dotfiles/.config/thefuck
+
+# ignore tmux plugins folder > ($TMUX_PLUGIN_MANAGER_PATH)
+dotfiles/.config/tmux/plugins/
+
