@@ -33,6 +33,7 @@ sh ./install-osx.sh
 
 ```
 
+# GNU Stow is used with oh my zsh install script
 # Stow (symlink magic)
 You can use GNU stow to create symlinks of dotfiles in home directory
 ```sh
