@@ -15,7 +15,7 @@ echo "##   1 - Install Command Line Tools in MacOS"
 echo "##   2 - Install Homebrew, Oh my zsh and my terminal env (emacs, tmux, fzf, kitty, etc.)"
 echo "##   3 - Install xcodes (via brew)"
 echo "##   4 - Setup iOS environment* (require Xcode & Homebrew)"
-echo "##   5 - Install nothing anymore"
+echo "##   5 - Install ruby env to iOS development"
 echo "##   6 - Setup MacOS & Install softwares with cask & mas"
 printf "##   >   "
 read input
@@ -128,9 +128,20 @@ elif [[ $input == 2 ]]; then
     brew install reattach-to-user-namespace
 
     # Minimal tmux setup (install tmux package manager + source new conf)
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    tmux source ~/.config/.tmux.conf
+    # set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.config/tmux/plugins/'
+    echo '\n# Export tmux env variables' >> $HOME/.zshrc
+    echo "export TMUX_PLUGIN_MANAGER_PATH='~/.config/tmux/plugins/'" >> $HOME/.zshrc
+    git clone https://github.com/tmux-plugins/tpm ${TMUX_PLUGIN_MANAGER_PATH}tpm
+    tmux source ~/.config/tmux/.tmux.conf
     tmux set-option -g display-time 4000
+
+    
+    # Generaly you can add XDG_CONFIG_HOME ▶︎ ~/Library/Preferences/
+    echo '\n# Export default linux equivalent env variables' >> $HOME/.zshrc
+    echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.zshrc
+    echo 'export XDG_DATA_HOME="$HOME/.local/share"' >> $HOME/.zshrc
+    echo 'export XDG_STATE_HOME="$HOME/.local/state"' >> $HOME/.zshrc
+    echo 'export XDG_CACHE_HOME="$HOME/.cache"' >> $HOME/.zshrc
 
     
     # tools.sh is my custom tools like tmux function
@@ -267,11 +278,30 @@ elif [[ $input == 4 ]]; then
 
 
 
-# Install Nothing anymore
+# Install ruby env to iOS development
 elif [[ $input == 5 ]]; then 
 
 
 
+    # install Fastlane
+    brew install fastlane
+
+    # move in project folder
+    cd ~/.wsx/iOS-Project-Folder
+
+    # install ruby env
+    brew install rbenv ruby-build && rbenv install
+
+    # check version installed
+    rbenv version
+    which -a bundle
+    ruby --version
+    rbenv which bundle
+
+    # add rbvend to your profile (zsh here)
+    echo 'eval "$(rbenv init -)"' >> $HOME/.zshrc
+    source ~/.zshrc
+    gem install bundler
 
 
 
