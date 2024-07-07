@@ -28,6 +28,18 @@ alias l="ls -A  | fzf-tmux --preview 'bat --style=numbers --color=always {}' | t
 alias lc="ls -A | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n' | tee >(pbcopy) | (xargs -0 printf \"Filename: %s was copied in clipboard\")"
 
 
+alias fzfc="fzf < <(find . --max-depth 5)"
+
+# Add interactive emacs fzf tool
+alias ee='emacs $(fzf -m --preview="bat --style=numbers --color=always {}")'
+export FZF_CTRL_T_COMMAND="ee"
+
+# https://github.com/junegunn/fzf/issues/980
+# And then instead of cd **[TAB] use cd [ctrl+t] and you should get file list only 1 level deep .
+# export FZF_DEFAULT_COMMAND="find . -maxdepth 1"
+# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+
 if ! command -v tmux &> /dev/null
 then
     echo "tmux could not be found"
