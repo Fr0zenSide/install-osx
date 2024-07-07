@@ -130,8 +130,9 @@ elif [[ $input == 2 ]]; then
     # Minimal tmux setup (install tmux package manager + source new conf)
     # set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.config/tmux/plugins/'
     echo '\n# Export tmux env variables' >> $HOME/.zshrc
-    echo "export TMUX_PLUGIN_MANAGER_PATH='~/.config/tmux/plugins/'" >> $HOME/.zshrc
-    git clone https://github.com/tmux-plugins/tpm ${TMUX_PLUGIN_MANAGER_PATH}tpm
+    echo "export TMUX_PLUGIN_MANAGER_PATH='~/.config/tmux/plugins'" >> $HOME/.zshrc
+    # add in backup the plugins system in .tmux.conf file
+    # git clone https://github.com/tmux-plugins/tpm ${TMUX_PLUGIN_MANAGER_PATH}/tpm
     tmux source ~/.config/tmux/.tmux.conf
     tmux set-option -g display-time 4000
 
@@ -160,8 +161,7 @@ elif [[ $input == 2 ]]; then
     brew install fzf # Require zsh
     # Set up fzf key bindings and fuzzy completion                                   
     echo "\n# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
-    echo 'eval $(fzf --zsh)' >> $HOME/.zshrc
-
+    echo 'source <(fzf --zsh)' >> $HOME/.zshrc
     
     # install thefuck to auto fix typo in cli
     # you have custom alias with ff in tools.sh
