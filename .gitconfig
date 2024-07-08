@@ -11,6 +11,7 @@
 	rm-last-ci = reset --hard HEAD^
 	stats = diff --stat
         sss = diff --shortstat
+	lds = diff --stat HEAD^..HEAD
 [color]
 	diff = auto
 	status = auto

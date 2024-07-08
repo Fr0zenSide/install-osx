@@ -11,23 +11,29 @@ After that you need to connect on github and add your SSH Key, if you don't have
 ```sh
 # Look at the user folder if you have an .ssh folder
 ls -al ~/.ssh
+```
 
+```sh
 # If you don't have *.pub
 ssh-keygen -t rsa -C "your_email@example.com"
+```
 
+```sh
 # Copies the contents of the id_rsa.pub file to your clipboard
 pbcopy < ~/.ssh/id_rsa.pub
 ```
 
 ```sh
-# Create Workspace
+# Get this code and launch the install script
+
+## Create Workspace
 mkdir -p ~/Documents/Workspaces/devops
 cd ~/Documents/Workspaces/devops
 
-# Clone the repository
+## Clone the repository
 git clone git@github.com:Fr0zenSide/install-osx.git
 
-# To launch the installations you need to launch on the project folder, the install script
+## Launch & select the install script you need
 cd install-osx
 sh ./install-osx.sh
 
@@ -43,6 +49,6 @@ stow -t ~/ .
 ```
 
 ```sh
-# if you want to cleani up symbolic links stow add in home folder
+# if you want to cleaning up symbolic links stow add in home folder
 stow -D .
 ```
