@@ -30,9 +30,13 @@ alias lc="ls -A | fzf-tmux --preview 'bat --style=numbers --color=always {}' | t
 
 alias fzfc="fzf < <(find . --max-depth 5)"
 
+alias popfzf="fzf --tmux center,80%,60% --layout reverse --border -m --walker-skip .git,node_modules,target,.DS_Store --preview 'bat --style=numbers --color=always {}'"
+
 # Add interactive emacs fzf tool
 alias ee='emacs $(fzf -m --preview="bat --style=numbers --color=always {}")'
-export FZF_CTRL_T_COMMAND="ee"
+#alias ema='emacs $(fzf --tmux 70%,40% --height ~90% --layout reverse --border -m  --preview "bat --style=numbers --color=always {}")'
+alias ema='emacs $(popfzf)'
+#export FZF_CTRL_T_COMMAND="$ee"
 
 # https://github.com/junegunn/fzf/issues/980
 # And then instead of cd **[TAB] use cd [ctrl+t] and you should get file list only 1 level deep .

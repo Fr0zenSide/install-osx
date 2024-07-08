@@ -14,3 +14,5 @@ dotfiles/.config/thefuck
 # ignore tmux plugins folder > ($TMUX_PLUGIN_MANAGER_PATH)
 dotfiles/.config/tmux/plugins/
 
+# ignore tmp folder to process stuff like colorls of dracula
+tmp/
