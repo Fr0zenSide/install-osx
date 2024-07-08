@@ -1,5 +1,19 @@
 #!/bin/bash
 
+# Helper to auto activate/disable mitm proxy for localhost
+function mitm_on() {
+    networksetup -setsecurewebproxystate wi-fi on
+    networksetup -setwebproxystate wi-fi on
+    
+    networksetup -setwebproxy wi-fi localhost 8080
+    networksetup -setsecurewebproxy wi-fi localhost 8080
+}
+
+function mitm_off() {
+    networksetup -setsecurewebproxystate wi-fi off
+    networksetup -setwebproxystate wi-fi off
+}
+
 ff () {
     TF_PYTHONIOENCODING=$PYTHONIOENCODING;
     export TF_SHELL=zsh;
