@@ -182,8 +182,12 @@ elif [[ $input == 2 ]]; then
     brew install kitty	
 
         
-    # helper for see tree in terminal
+    # helper for see tree in terminal | can open result in $EDITOR with eXX
     # brew install tree
+    brew install tre-command
+    echo "\n# Add tree helper called tre | can open result in $EDITOR with eXX" >> $HOME/.zshrc
+    echo 'tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }' >> $HOME/.zshrc
+    echo 'source /tmp/tre_aliases_$USER' >> $HOME/.zshrc
 
     
     # Create workspaces and add symlinks to go fast to xcode folders (cd ~/.wsx)
