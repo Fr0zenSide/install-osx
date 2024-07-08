@@ -327,8 +327,15 @@ elif [[ $input == 6 ]]; then
 
 	echo "install quicklook plugin"
 	brew install --no-quarantine syntax-highlight
+	# xattr -r -d com.apple.quarantine "/Applications/Syntax Highlight.app" // "FULL PATH OF Syntax Highlight.app"
+	# Setup > Render HTML + Light theme > neovim (dark) + Dark theme > Base 16 Rebecca
 	brew install --no-quarantine qlmarkdown
-	
+	# xattr -r -d com.apple.quarantine "/Applications/QLMarkdown.app" //  "FULL PATH OF THE QLMarkdown.app"	
+
+	# brew install qlcolorcode       # Seems not working on Apple Silicon m1+
+	# brew install qlstephen         # Not working anymore (Apple m1+)
+	# brew install quicklook-json    # Not working anymore (Apple m1+)
+	# brew install qlprettypatch     # Replaced by Syntax Highlight
 	brew install quicklook-csv
 	# brew cask install betterzipql # Error: Cask 'betterzipql' is unavailable: No Cask with this name exists.
 	brew install suspicious-package
