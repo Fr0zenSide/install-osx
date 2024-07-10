@@ -72,6 +72,8 @@ elif [[ $input == 2 ]]; then
     
     # install oh my zsh
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    wait
     
     # add brew to zshrc
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> $HOME/.zshrc
@@ -97,7 +99,8 @@ elif [[ $input == 2 ]]; then
     cd $DIR
     echo "Apply installed omz pluglins in .zshrc"
 
-    echo "\n# add zsh-completions to source path of zsh\n" >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# add zsh-completions to source path of zsh\n" >> $HOME/.zshrc
     echo "fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src" >> $HOME/.zshrc
     # replace plugins in ~/.zshrc with sed :
     # plugins=(
@@ -129,7 +132,8 @@ elif [[ $input == 2 ]]; then
 
     # Minimal tmux setup (install tmux package manager + source new conf)
     # set-environment -g TMUX_PLUGIN_MANAGER_PATH '~/.config/tmux/plugins/'
-    echo '\n# Export tmux env variables' >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# Export tmux env variables" >> $HOME/.zshrc
     echo "export TMUX_PLUGIN_MANAGER_PATH='~/.config/tmux/plugins'" >> $HOME/.zshrc
     # add in backup the plugins system in .tmux.conf file
     # git clone https://github.com/tmux-plugins/tpm ${TMUX_PLUGIN_MANAGER_PATH}/tpm
@@ -138,7 +142,8 @@ elif [[ $input == 2 ]]; then
 
     
     # Generaly you can add XDG_CONFIG_HOME ▶︎ ~/Library/Preferences/
-    echo '\n# Export default linux equivalent env variables' >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# Export default linux equivalent env variables" >> $HOME/.zshrc
     echo 'export XDG_CONFIG_HOME="$HOME/.config"' >> $HOME/.zshrc
     echo 'export XDG_DATA_HOME="$HOME/.local/share"' >> $HOME/.zshrc
     echo 'export XDG_STATE_HOME="$HOME/.local/state"' >> $HOME/.zshrc
@@ -148,25 +153,31 @@ elif [[ $input == 2 ]]; then
     # tools.sh is my custom tools like tmux function
     # with stow you don't need to copy this script anymore
     # cp .tools.sh $HOME/dotfiles/tools.sh
-    echo '\n# link .tools.sh with zsh func' >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# link .tools.sh with zsh func" >> $HOME/.zshrc
     echo 'source ~/.config/scripts/tools.sh' >> $HOME/.zshrc
 
     
     brew install bat
-    echo '\n# Replace cat with bat' >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# Replace cat with bat" >> $HOME/.zshrc
     echo 'alias cat="bat --paging=never --plain"' >> $HOME/.zshrc
+    echo 'export BAT_THEME="Catppuccin Frappe"' >> $HOME/.zshrc
+    mkdir -p "$(bat --config-dir)/themes"
 
     
     # brew install wget2
     brew install fzf # Require zsh
-    # Set up fzf key bindings and fuzzy completion                                   
-    echo "\n# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
+    # Set up fzf key bindings and fuzzy completion
+    echo "" >> $HOME/.zshrc
+    echo "# Set up fzf key bindings and fuzzy completion" >> $HOME/.zshrc
     echo 'source <(fzf --zsh)' >> $HOME/.zshrc
     
     # install thefuck to auto fix typo in cli
     # you have custom alias with ff in tools.sh
     brew install thefuck
-    echo "\n# thefuck alias binding => fuck()" >> $Home/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# thefuck alias binding => fuck()" >> $Home/.zshrc
     echo 'eval $(thefuck --alias)' >> $HOME/.zshrc
 
     
@@ -185,7 +196,8 @@ elif [[ $input == 2 ]]; then
     # helper for see tree in terminal | can open result in $EDITOR with eXX
     # brew install tree
     brew install tre-command
-    echo "\n# Add tree helper called tre | can open result in $EDITOR with eXX" >> $HOME/.zshrc
+    echo "" >> $HOME/.zshrc
+    echo "# Add tree helper called tre | can open result in $EDITOR with eXX" >> $HOME/.zshrc
     echo 'tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }' >> $HOME/.zshrc
     echo 'source /tmp/tre_aliases_$USER' >> $HOME/.zshrc
 
@@ -202,6 +214,7 @@ elif [[ $input == 2 ]]; then
     # go to project forlder
     # launch $ git maintenance start
     # now git prefetch automatically the remote code
+    echo ""
     echo "------------------------------------------------"
     echo ""
     echo "------------------- Tips -----------------------"
@@ -212,6 +225,8 @@ elif [[ $input == 2 ]]; then
     echo "$ cd ~/wsx/plop && git maintenance start"
     echo ""
     echo "------------------------------------------------"
+    echo "------------------------------------------------"
+    echo ""
 
     
     # source updated .zshrc file
