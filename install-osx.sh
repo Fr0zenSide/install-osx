@@ -67,7 +67,15 @@ elif [[ $input == 2 ]]; then
     
     # Inception:: install a new OS ¯\_(ಥ‿ಥ)_/¯ 
     brew install emacs
-    brew services start emacs 
+    brew services start emacs
+    echo ""
+    echo "------------ Emacs ------------"
+    echo "to enable package manager (MELPA) in emacs run:"
+    echo "M-x package-refresh-contents or M-x package-list-packages to ensure that Emacs has fetched the MELPA package list"
+    echo "before you can install packages with M-x package-install"
+    echo ""
+    echo "-------------------------------"
+    echo ""
 
     
     # install oh my zsh
