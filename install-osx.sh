@@ -270,7 +270,7 @@ elif [[ $input == 4 ]]; then
     # install fastlane
     # brew install fastlane
 
-    echo install Xcode environnement
+    echo "install Xcode environnement"
 
     # Display the building time on xcode HUD
     defaults write com.apple.dt.Xcode ShowBuildOperationDuration YES

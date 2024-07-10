@@ -2,10 +2,24 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Battery_barChart_position</key>
+	<integer>3</integer>
+	<key>Battery_batteryDetails_position</key>
+	<integer>4</integer>
+	<key>Battery_battery_additional</key>
+	<string>innerPercentage</string>
+	<key>Battery_battery_position</key>
+	<integer>0</integer>
+	<key>Battery_label_position</key>
+	<integer>1</integer>
+	<key>Battery_mini_position</key>
+	<integer>2</integer>
 	<key>Battery_position</key>
 	<integer>6</integer>
 	<key>Battery_state</key>
 	<false/>
+	<key>Battery_widget</key>
+	<string>battery</string>
 	<key>Bluetooth_position</key>
 	<integer>7</integer>
 	<key>CPU_barChart_position</key>
@@ -19,9 +33,15 @@
 	<key>CPU_pieChart_position</key>
 	<integer>4</integer>
 	<key>CPU_position</key>
-	<integer>2</integer>
+	<integer>3</integer>
+	<key>CPU_splitValue</key>
+	<false/>
+	<key>CPU_state</key>
+	<true/>
 	<key>CPU_tachometer_position</key>
 	<integer>5</integer>
+	<key>CPU_usagePerCore</key>
+	<true/>
 	<key>CPU_widget</key>
 	<string>bar_chart</string>
 	<key>Clock_position</key>
@@ -31,27 +51,66 @@
 	<key>CombinedModules_popup</key>
 	<false/>
 	<key>CombinedModules_spacing</key>
-	<string>none</string>
-	<key>Disk_position</key>
-	<integer>4</integer>
-	<key>Disk_state</key>
-	<false/>
-	<key>GPU_position</key>
+	<string>2</string>
+	<key>Disk_barChart_position</key>
+	<integer>3</integer>
+	<key>Disk_label_position</key>
 	<integer>1</integer>
+	<key>Disk_memory_position</key>
+	<integer>4</integer>
+	<key>Disk_mini_position</key>
+	<integer>2</integer>
+	<key>Disk_networkChart_position</key>
+	<integer>6</integer>
+	<key>Disk_pieChart_position</key>
+	<integer>0</integer>
+	<key>Disk_position</key>
+	<integer>1</integer>
+	<key>Disk_speed_position</key>
+	<integer>5</integer>
+	<key>Disk_state</key>
+	<true/>
+	<key>Disk_widget</key>
+	<string>pie_chart</string>
+	<key>GPU_position</key>
+	<integer>0</integer>
+	<key>LaunchAtLoginNext</key>
+	<true/>
 	<key>NSNavPanelExpandedSizeForSaveMode</key>
 	<string>{800, 448}</string>
 	<key>NSNavPanelExpandedStateForSaveMode</key>
 	<true/>
 	<key>NSStatusItem Preferred Position CombinedModules</key>
 	<real>391</real>
+	<key>NSToolbar Configuration eu.exelban.Stats.Settings.Toolbar</key>
+	<dict>
+		<key>TB Display Mode</key>
+		<integer>1</integer>
+		<key>TB Icon Size Mode</key>
+		<integer>1</integer>
+		<key>TB Is Shown</key>
+		<true/>
+		<key>TB Size Mode</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
-	<string>454 386 800 448 0 0 1710 1068 </string>
+	<string>500 507 800 448 0 0 1800 1125 </string>
 	<key>Network_VPNMode</key>
 	<false/>
 	<key>Network_position</key>
-	<integer>0</integer>
+	<integer>4</integer>
 	<key>Network_reader</key>
 	<string>interface</string>
+	<key>Network_speed_icon</key>
+	<string>dots</string>
+	<key>Network_speed_monochrome</key>
+	<false/>
+	<key>Network_speed_units</key>
+	<true/>
+	<key>Network_speed_uploadColor</key>
+	<string>secondGreen</string>
+	<key>Network_speed_valueColor</key>
+	<false/>
 	<key>RAM_barChart_position</key>
 	<integer>0</integer>
 	<key>RAM_label_position</key>
@@ -65,7 +124,7 @@
 	<key>RAM_pieChart_position</key>
 	<integer>4</integer>
 	<key>RAM_position</key>
-	<integer>3</integer>
+	<integer>2</integer>
 	<key>RAM_splitValue</key>
 	<true/>
 	<key>RAM_tachometer_position</key>
@@ -74,17 +133,21 @@
 	<string>bar_chart</string>
 	<key>Sensors_position</key>
 	<integer>5</integer>
+	<key>Sensors_state</key>
+	<false/>
 	<key>runAtLoginInitialized</key>
 	<true/>
 	<key>setupProcess</key>
 	<true/>
 	<key>telemetry</key>
 	<false/>
+	<key>telemetry_id</key>
+	<string>4CF85125-A994-45C3-8495-C6A68275477D</string>
 	<key>update-interval</key>
 	<string>At start</string>
 	<key>updater_check_ts</key>
-	<integer>1715328621</integer>
+	<integer>1720594165</integer>
 	<key>version</key>
-	<string>2.10.12</string>
+	<string>2.11.1</string>
 </dict>
 </plist>
