@@ -50,7 +50,7 @@ alias popfzf="fzf --tmux center,80%,60% --layout reverse --border -m --walker-sk
 alias ee='emacs $(fzf -m --preview="bat --style=numbers --color=always {}")'
 #alias ema='emacs $(fzf --tmux 70%,40% --height ~90% --layout reverse --border -m  --preview "bat --style=numbers --color=always {}")'
 alias ema='emacs $(popfzf)'
-#export FZF_CTRL_T_COMMAND="$ee"
+#export FZF_CTRL_T_COMMAND="popfzf"
 
 # https://github.com/junegunn/fzf/issues/980
 # And then instead of cd **[TAB] use cd [ctrl+t] and you should get file list only 1 level deep .
