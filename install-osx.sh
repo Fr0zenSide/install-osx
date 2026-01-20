@@ -249,7 +249,8 @@ elif [[ $input == 3 ]]; then
 
 
     # install xcodes
-    brew install --cask xcodes
+    # Old => brew install --cask xcodes
+    brew install xcodes-app
     open /Applications/Xcodes.app
 
 
@@ -348,6 +349,14 @@ elif [[ $input == 6 ]]; then
 	# Allow Apple crash reports like notifications
 	defaults write com.apple.CrashReporter UseUNC 1
 
+	# Last Warning about brew
+	# Warning: Some installed casks are deprecated or disabled.
+	# You should find replacements for the following casks:
+	# alacritty
+	# provisionql
+	# qlmarkdown
+	# syntax-highlight
+
 	echo "install quicklook plugin"
 	brew install --no-quarantine syntax-highlight
 	# xattr -r -d com.apple.quarantine "/Applications/Syntax Highlight.app" // "FULL PATH OF Syntax Highlight.app"
@@ -365,11 +374,12 @@ elif [[ $input == 6 ]]; then
 	brew install apparency
 	brew install provisionql
 	brew install qlvideo
+	# brew install asset-catalog-tinkerer # app to extract Assets Catalog of Xcode
 	wait
 
 	echo "install of my softs throught cask"
 	brew install slack
-	brew install eloston-chromium
+	brew install ungoogled-chromium # old > eloston-chromium
 #	brew cask install srware-iron
 #	brew cask install firefox
 	brew install handbrake
