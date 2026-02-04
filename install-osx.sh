@@ -157,6 +157,8 @@ elif [[ $input == 2 ]]; then
     echo 'export XDG_STATE_HOME="$HOME/.local/state"' >> $HOME/.zshrc
     echo 'export XDG_CACHE_HOME="$HOME/.cache"' >> $HOME/.zshrc
 
+    # add a sym link of your tmux conf file for tpm was working
+    ln -s ~/.config/tmux/.tmux.conf "$XDG_CONFIG_HOME/tmux/tmux.conf"
     
     # tools.sh is my custom tools like tmux function
     # with stow you don't need to copy this script anymore
@@ -406,6 +408,8 @@ elif [[ $input == 6 ]]; then
 #	brew cask install motrix
 	brew install coconutbattery
 #	brew cask install wintertime
+	brew install finetune
+	brew install caffeine
 	wait
 
 	echo "install of my softs throught mas"
