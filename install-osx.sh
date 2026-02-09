@@ -124,6 +124,7 @@ elif [[ $input == 2 ]]; then
     echo '\n# Setup default code editors' >> $HOME/.zshrc
     echo 'export EDITOR=emacs' >> $HOME/.zshrc
     echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
+    echo 'export TERM=xterm-kitty' >> $HOME/.zshrc
 
     
     # use GNU stow to create symlinks of dotfiles in home directory
@@ -174,6 +175,9 @@ elif [[ $input == 2 ]]; then
     echo 'alias cat="bat --paging=never --plain"' >> $HOME/.zshrc
     echo 'export BAT_THEME="Catppuccin Frappe"' >> $HOME/.zshrc
     mkdir -p "$(bat --config-dir)/themes"
+    # Maybe at this point you need to install wget first
+    wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Frappe.tmTheme
+    bat cache --build
 
     
     # brew install wget2
