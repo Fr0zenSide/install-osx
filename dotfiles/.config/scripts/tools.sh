@@ -34,28 +34,110 @@ ff () {
 if ! command -v fzf &> /dev/null
 then
     echo "fzf could not be found"
-    exit 1
+    return 1
 fi
 
+# ─── FZF defaults ─────────────────────────────────────────────────
+# fd respects .gitignore, is fast, and skips junk automatically
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --exclude .git"
+export FZF_DEFAULT_OPTS="
+  --layout=reverse
+  --border
+  --color=fg:#f8f8f2,bg:-1,hl:#bd93f9
+  --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+  --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+  --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4
+  --bind='ctrl-d:half-page-down,ctrl-u:half-page-up'
+  --bind='ctrl-y:execute-silent(echo -n {+} | pbcopy)+abort'
+"
 
-alias l="ls -A  | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n'"
-alias lc="ls -A | fzf-tmux --preview 'bat --style=numbers --color=always {}' | tr -d '\n' | tee >(pbcopy) | (xargs -0 printf \"Filename: %s was copied in clipboard\")"
+# Ctrl+T: file finder (like Xcode Cmd+O)
+export FZF_CTRL_T_COMMAND="fd --type f --hidden --exclude .git"
+export FZF_CTRL_T_OPTS="
+  --preview 'bat --style=numbers,changes --color=always --line-range :300 {}'
+  --preview-window 'right:60%:border-left'
+  --header '⌃O open · ⌃Y copy path · ⌃D/⌃U scroll preview'
+  --bind='ctrl-o:execute(emacs {})+abort'
+"
 
+# Ctrl+R: history search with preview of full command
+export FZF_CTRL_R_OPTS="
+  --preview 'echo {}'
+  --preview-window 'down:3:wrap'
+"
 
-alias fzfc="fzf < <(find . --max-depth 5)"
+# Alt+C: cd into directory
+export FZF_ALT_C_COMMAND="fd --type d --hidden --exclude .git"
+export FZF_ALT_C_OPTS="
+  --preview 'ls -la --color=always {}'
+"
 
-alias popfzf="fzf --tmux center,80%,60% --layout reverse --border -m --walker-skip .git,node_modules,target,.DS_Store --preview 'bat --style=numbers --color=always {}'"
+# ─── IDE-like commands ────────────────────────────────────────────
 
-# Add interactive emacs fzf tool
-alias ee='emacs $(fzf -m --preview="bat --style=numbers --color=always {}")'
-#alias ema='emacs $(fzf --tmux 70%,40% --height ~90% --layout reverse --border -m  --preview "bat --style=numbers --color=always {}")'
-alias ema='emacs $(popfzf)'
-#export FZF_CTRL_T_COMMAND="popfzf"
+# o: Open file — the Cmd+O of your terminal
+#    Fuzzy search all project files, preview with syntax highlighting, open in emacs
+o () {
+    local file
+    file=$(fd --type f --hidden --exclude .git | fzf-tmux \
+        -p 90%,80% \
+        --layout reverse \
+        --preview 'bat --style=numbers,changes --color=always --line-range :300 {}' \
+        --preview-window 'right:60%:border-left' \
+        --header '⏎ open · ⌃Y copy path' \
+        --bind='ctrl-y:execute-silent(echo -n {} | pbcopy)+abort')
+    [[ -n "$file" ]] && emacs "$file"
+}
 
-# https://github.com/junegunn/fzf/issues/980
-# And then instead of cd **[TAB] use cd [ctrl+t] and you should get file list only 1 level deep .
-# export FZF_DEFAULT_COMMAND="find . -maxdepth 1"
-# export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+# rg: Grep + open — search content then jump to the line
+#    Like Xcode's Cmd+Shift+F (Find in project)
+s () {
+    local selection file line
+    selection=$(rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+        fzf-tmux -p 90%,80% \
+            --ansi \
+            --layout reverse \
+            --delimiter : \
+            --preview 'bat --style=numbers,changes --color=always --highlight-line {2} --line-range {2}: {1}' \
+            --preview-window 'right:60%:border-left:+{2}-10' \
+            --header '⏎ open at line')
+    if [[ -n "$selection" ]]; then
+        file=$(echo "$selection" | cut -d: -f1)
+        line=$(echo "$selection" | cut -d: -f2)
+        emacs +${line} "$file"
+    fi
+}
+
+# l: browse files in current dir with preview
+l () {
+    local file
+    file=$(fd --type f --max-depth 1 | fzf-tmux \
+        -p 80%,60% \
+        --layout reverse \
+        --preview 'bat --style=numbers,changes --color=always {}')
+    [[ -n "$file" ]] && echo -n "$file"
+}
+
+# lc: browse + copy filename to clipboard
+lc () {
+    local file
+    file=$(fd --type f --max-depth 1 | fzf-tmux \
+        -p 80%,60% \
+        --layout reverse \
+        --preview 'bat --style=numbers,changes --color=always {}')
+    [[ -n "$file" ]] && echo -n "$file" | pbcopy && echo "Copied: $file"
+}
+
+# li: browse images with kitty preview
+li () {
+    fd --type f -e png -e jpg -e jpeg -e gif -e svg -e webp | fzf \
+        --preview 'kitten icat --clear --transfer-mode=memory --stdin=no --place=${FZF_PREVIEW_COLUMNS}x${FZF_PREVIEW_LINES}@0x0 {} > /dev/tty'
+}
+
+# ee: quick emacs open (no popup, inline fzf)
+alias ee='emacs $(fzf --preview "bat --style=numbers,changes --color=always {}")'
+
+# ema: emacs open via popup
+alias ema='o'
 
 
 if ! command -v tmux &> /dev/null
