@@ -204,9 +204,12 @@ elif [[ $input == 2 ]]; then
 
     
     # install my new terminal ? => kitty
-    brew install kitty	
+    brew install kitty
 
-        
+    # Nerd Font — required for powerline arrows and dev icons in tmux/starship
+    brew install --cask font-jetbrains-mono-nerd-font
+
+
     # helper for see tree in terminal | can open result in $EDITOR with eXX
     # brew install tree
     brew install tre-command
