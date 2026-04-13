@@ -17,4 +17,5 @@ dotfiles/.config/thefuck
 dotfiles/.config/tmux/plugins/
 
 # ignore tmp folder to process stuff like colorls of dracula
-tmp/
+tmp/dotfiles/.config/shikki/keys/*.p8
+dotfiles/.config/shikki/.env
