@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Remove oh-my-zsh aliases that conflict with our function names
+# (oh-my-zsh lib/directories.zsh defines alias l='ls -lah' etc.)
+unalias l la lc ll ls lsa 2>/dev/null
+
 # Helper to auto activate/disable mitm proxy for localhost
 function mitm_on() {
     networksetup -setsecurewebproxystate wi-fi on
