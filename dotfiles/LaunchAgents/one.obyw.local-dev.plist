@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>one.obyw.local-dev</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/Users/jeoffrey/Documents/Workspaces/obyw-one/local-dev.sh</string>
+        <string>start</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <false/>
+
+    <key>WorkingDirectory</key>
+    <string>/Users/jeoffrey/Documents/Workspaces/obyw-one</string>
+
+    <key>StandardOutPath</key>
+    <string>/Users/jeoffrey/.local/log/obyw-local-dev.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/jeoffrey/.local/log/obyw-local-dev.err</string>
+
+    <key>EnvironmentVariables</key>
+    <dict>
+        <key>PATH</key>
+        <string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+        <key>HOME</key>
+        <string>/Users/jeoffrey</string>
+    </dict>
+</dict>
+</plist>
