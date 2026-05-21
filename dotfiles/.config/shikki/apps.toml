@@ -1,0 +1,66 @@
+# shikki / apps.toml
+#
+# Registry consumed by `shi ship --testflight` (TestFlight gates) and the
+# release pipeline. Schema today is TestFlight/iOS-app oriented:
+# `AppConfig` in `Sources/ShiKit/Kernel/Core/AppConfig.swift` requires
+# scheme / team_id / bundle_id / project_path.
+#
+# Backfilled 2026-05-04 as part of the Path A retroactive release pipeline
+# rebuild (5 PRs squash-merged via raw `gh pr merge` bypassed `shi ship`;
+# see CHANGELOG.md and `~/.shikki/ship-log.md`).
+#
+# Forward-looking entries (kind = "swift-app" CLI binaries like `shi` itself)
+# are documented here so they show up in `shi ship --history` audits even
+# though the current AppConfig schema does not yet support multi-target /
+# multi-arch CLI builds. Tracking gap: the schema needs a `kind` field plus
+# a `targets` list (darwin-arm64, darwin-x86_64, ios-arm64) before
+# `shi ship --app shi` can fully exercise this entry. For now these
+# entries are PARTIAL — TestFlight gates will skip them via the
+# `kind != "ios-app"` discriminator (gap: discriminator is also TODO).
+
+# -----------------------------------------------------------------------------
+# [shi] — Mac CLI binary, primary distribution target
+# -----------------------------------------------------------------------------
+# The `shi` binary at ~/.local/bin/shi (~46 MB, darwin-arm64).
+# kind = "swift-app" is forward-looking metadata; AppConfig parser will
+# silently ignore it until the schema lands.
+[shi]
+kind = "swift-app"
+scheme = "shi"
+team_id = "PLACEHOLDER_NO_TEAM"
+bundle_id = "one.obyw.shikki.shi"
+project_path = "projects/shikki"
+testflight_group = "Internal"
+export_method = "developer-id"
+# targets: darwin-arm64 (primary, host build).
+# darwin-x86_64 deferred (Swift toolchain coverage TBD).
+# ios-arm64 deferred (no iOS app target in Package.swift today).
+# linux-x86_64 deferred (Swift cross-compile non-trivial; requires
+# musl SDK or container build, tracked separately).
+
+# -----------------------------------------------------------------------------
+# [shikki-mcp] — MCP server binary, optional secondary
+# -----------------------------------------------------------------------------
+# Standalone `shikki-mcp` SPM target distributed alongside `shi`. Built
+# under `packages/ShikkiMCP` (Package.swift line 17 `.product(name:
+# "shikki-mcp", ...)`).
+[shikki-mcp]
+kind = "swift-app"
+scheme = "shikki-mcp"
+team_id = "PLACEHOLDER_NO_TEAM"
+bundle_id = "one.obyw.shikki.mcp"
+project_path = "packages/ShikkiMCP"
+testflight_group = "Internal"
+export_method = "developer-id"
+
+# -----------------------------------------------------------------------------
+# [kagami] — NOT shipped from this repo
+# -----------------------------------------------------------------------------
+# `projects/kagami` is a symlink to a sibling repo checkout; kagami
+# release artifacts ship from the kagami repo's own `apps.toml`. This
+# entry documents the relationship for orchestrator audit purposes.
+# Listed here so `shi ship --app kagami` from the shikki workspace can
+# fail loudly with a useful message rather than a confusing
+# unknownApp error.
+# (Schema does not yet support an "external" sentinel; revisit when
+# AppConfig.kind lands.)

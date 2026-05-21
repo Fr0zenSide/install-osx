@@ -1,0 +1,5 @@
+NTFY_TOPIC="shikki"
+NTFY_SERVER="https://ntfy.obyw.one"
+NTFY_TOKEN=""
+NTFY_TIMEOUT="120"
+AUTO_APPROVE_TOOLS="Read,Glob,Grep"

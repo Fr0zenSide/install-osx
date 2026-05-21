@@ -1,0 +1,17 @@
+{
+  "cursorIndex" : 0,
+  "itemStatuses" : [
+
+  ],
+  "progress" : {
+    "approved" : 0,
+    "deferred" : 0,
+    "needsInfo" : 0,
+    "pending" : 0,
+    "rejected" : 0,
+    "total" : 0
+  },
+  "reviewer" : "@Daimyo",
+  "savedAt" : "2026-05-15T15:59:40Z",
+  "specSlug" : "agency-bootstrap-wave-0-pricing-engine"
+}

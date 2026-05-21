@@ -19,3 +19,9 @@ dotfiles/.config/tmux/plugins/
 # ignore tmp folder to process stuff like colorls of dracula
 tmp/dotfiles/.config/shikki/keys/*.p8
 dotfiles/.config/shikki/.env
+
+# Runtime log noise (one-K shiki refs are historical)
+*.log
+**/daemon.log
+**/approval.log
+**/operations.log

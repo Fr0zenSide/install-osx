@@ -1,0 +1,16 @@
+#!/bin/bash
+echo ""
+echo "  🟠 Orchestrator"
+echo "  $(shikki status --mini 2>/dev/null || echo 'unavailable')"
+echo ""
+echo "  🩷 Project"
+echo "  $(shikki status --project --path "$1" 2>/dev/null || echo 'no project')"
+echo ""
+echo "  🟣 Git"
+echo "  $(shikki status --git --path "$1" 2>/dev/null || echo 'no repo')"
+echo ""
+echo "  ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+echo "  Q=questions  +=staged  !=modified  ?=untracked"
+echo "  ≡=stash  ⇡=ahead  ⇣=behind  \$=budget"
+echo ""
+read -rsp "  Press any key to close..." -n1
