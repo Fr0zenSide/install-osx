@@ -430,6 +430,7 @@ elif [[ $input == 6 ]]; then
 	mas install 824183456  # Affinity Photo                   (1.8.1)
 	mas install 824171161  # Affinity Designer                (1.8.1)
 	mas install 461369673  # VOX: MP3 & FLAC Music Player     (3.3.17)
+	mas install 1475387142 # Tailscale (Headscale-compat WireGuard client, no sudo) — FR-sovereign self-hosted coordinator at vpn.obyw.one
 	# TODO: Add my new tools of productivity
 #	mas lucky "Planny 3 Listes intelligentes"
 	mas lucky "Tot"

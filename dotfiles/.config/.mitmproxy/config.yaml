@@ -1,3 +1,11 @@
 allow_hosts:
-  - '\.helloasso\.com'
-  - '\.helloasso-dev\.com'
+  - '\.jeoffrey\.me'
+  - '\.obyw\.one'
+  - '\.fj-studios\.eu'
+  - '\.maya\.fit'
+  - '\.shiki\.sh'
+  - '\.shikki\.io'
+  - '\.shikki\.app'
+  - '\.moto-project\.org'
+  - '\.flsh\.sh'
+  - '\.getflsh\.app'

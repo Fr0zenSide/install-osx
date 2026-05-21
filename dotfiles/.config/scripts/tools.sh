@@ -192,3 +192,52 @@ t () {
 	echo "Not a tmux time"
     fi
 }
+
+# ──────────────────────────────────────────────────────────────────────────
+# Smart Opt+Arrow — word-move inside line buffer, switch tmux pane at edge
+# ──────────────────────────────────────────────────────────────────────────
+# Behavior:
+#   Opt+Left  → if cursor is at start of buffer, switch to left tmux pane;
+#               otherwise jump one word back (zle backward-word).
+#   Opt+Right → if cursor is at end of buffer, switch to right tmux pane;
+#               otherwise jump one word forward (zle forward-word).
+#
+# Why this and not `bind -n M-Left select-pane -L` in tmux:
+#   tmux's `bind -n` intercepts the key before zsh ever sees it, so word-jump
+#   in a prompt becomes impossible. By NOT binding M-Left/M-Right in tmux,
+#   the escape sequence reaches zsh; the widget below reads $CURSOR and
+#   decides. (M-Up / M-Down stay bound in tmux — see ~/.config/tmux/.tmux.conf.)
+#
+# Caveats:
+#   - Only applies when zsh's line editor is active (i.e. at a prompt).
+#     Full-screen apps (vim, less, htop) receive Opt+Arrow directly; for
+#     pane-switching there, use a per-app integration like vim-tmux-navigator.
+#   - `CURSOR == 0` / `CURSOR == ${#BUFFER}` are absolute buffer edges, not
+#     visual line edges. For typical command-line use that's the right call.
+#   - Outside tmux ($TMUX unset), the widget falls back to plain word-move.
+
+_smart-backward-or-pane() {
+  if (( CURSOR == 0 )); then
+    [[ -n $TMUX ]] && tmux select-pane -L
+  else
+    zle backward-word
+  fi
+}
+_smart-forward-or-pane() {
+  if (( CURSOR == ${#BUFFER} )); then
+    [[ -n $TMUX ]] && tmux select-pane -R
+  else
+    zle forward-word
+  fi
+}
+zle -N _smart-backward-or-pane
+zle -N _smart-forward-or-pane
+
+# Escape sequences for Opt+Arrow vary by terminal. The two pairs below cover
+# the common encodings — xterm/iTerm2/WezTerm/Alacritty/Kitty default style
+# (`^[[1;3D`), and the older "Esc+letter" style (`^[b` / `^[f`) emitted by
+# macOS Terminal.app and some minimal setups. Bind both so it Just Works.
+bindkey '^[[1;3D' _smart-backward-or-pane   # Opt+Left  (xterm-style)
+bindkey '^[[1;3C' _smart-forward-or-pane    # Opt+Right (xterm-style)
+bindkey '^[b'     _smart-backward-or-pane   # Opt+Left  (Esc+b style)
+bindkey '^[f'     _smart-forward-or-pane    # Opt+Right (Esc+f style)
