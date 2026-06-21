@@ -249,6 +249,31 @@ elif [[ $input == 2 ]]; then
     # source updated .zshrc file
     source $HOME/.zshrc
     wait
+
+    # === W2: shikki-dev signing certificate bootstrap ===
+    # Provisions a self-signed Code Signing cert named "shikki-dev" in the
+    # login keychain BEFORE the first `make install` run, so the binary gets a
+    # stable codesign identity from day one — no background-item notification
+    # spam on every rebuild.
+    # Relies on setup-dev-signing.sh from the shikki repo (W1 PR #110).
+    # The script is idempotent: re-running install-osx.sh is safe.
+    SHIKKI_SIGNING_SCRIPT="$HOME/.local/src/shikki/scripts/setup-dev-signing.sh"
+    if [ -f "$SHIKKI_SIGNING_SCRIPT" ]; then
+        echo "[install-osx] Bootstrapping shikki-dev signing certificate..."
+        "$SHIKKI_SIGNING_SCRIPT" || {
+            echo "[install-osx] WARNING: shikki-dev cert bootstrap failed (non-fatal)"
+            echo "[install-osx]   Manually run: $SHIKKI_SIGNING_SCRIPT"
+            echo "[install-osx]   After the cert is in your login keychain, re-run:"
+            echo "[install-osx]     cd ~/.local/src/shikki && make install"
+        }
+    else
+        echo "[install-osx] WARNING: shikki repo not yet cloned at ~/.local/src/shikki"
+        echo "[install-osx]   Skip signing cert bootstrap for now."
+        echo "[install-osx]   After cloning shikki, run:"
+        echo "[install-osx]     ~/.local/src/shikki/scripts/setup-dev-signing.sh"
+    fi
+    # === end W2 ===
+
     echo 'command line tools is installed'
 
 
