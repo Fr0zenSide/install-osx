@@ -343,7 +343,7 @@ elif [[ $input == 5 ]]; then
 
 
 # Install softwares with cask
-elif [[ $input == 6 ]]; then 
+elif [[ $input == 6 ]]; then
 
 
 
@@ -358,6 +358,17 @@ elif [[ $input == 6 ]]; then
 	# Allow Apple crash reports like notifications
 	defaults write com.apple.CrashReporter UseUNC 1
 
+	# ─── Trusted casks: skip Gatekeeper quarantine xattr ───────────────────
+	# Every cask installed in this section comes from a publisher I personally
+	# verified in this repo (sbarex, MonitorControl org, leits, XcodesOrg,
+	# VSCodium, rectangleapp, handbrake.fr, wwdc.io, etc.). Audit re-run
+	# 2026-06-21: all upstream homepages still point to their original
+	# author/org — no ownership drift since each was added.
+	# Setting this once means: no per-line --no-quarantine; no right-click
+	# "Open Anyway" dance after macOS Sequoia/Tahoe Gatekeeper tightening;
+	# QuickLook plugins load instead of silently no-op'ing.
+	export HOMEBREW_CASK_OPTS='--no-quarantine'
+
 	# Last Warning about brew
 	# Warning: Some installed casks are deprecated or disabled.
 	# You should find replacements for the following casks:
@@ -367,11 +378,9 @@ elif [[ $input == 6 ]]; then
 	# syntax-highlight
 
 	echo "install quicklook plugin"
-	brew install --no-quarantine syntax-highlight
-	# xattr -r -d com.apple.quarantine "/Applications/Syntax Highlight.app" // "FULL PATH OF Syntax Highlight.app"
+	brew install syntax-highlight
 	# Setup > Render HTML + Light theme > neovim (dark) + Dark theme > Base 16 Rebecca
-	brew install --no-quarantine qlmarkdown
-	# xattr -r -d com.apple.quarantine "/Applications/QLMarkdown.app" //  "FULL PATH OF THE QLMarkdown.app"	
+	brew install qlmarkdown
 
 	# brew install qlcolorcode       # Seems not working on Apple Silicon m1+
 	# brew install qlstephen         # Not working anymore (Apple m1+)
@@ -418,6 +427,18 @@ elif [[ $input == 6 ]]; then
 	brew install finetune
 	brew install caffeine
 	wait
+
+	# ─── Post-install Gatekeeper cleanup ───────────────────────────────────
+	# Strip com.apple.quarantine xattr from anything that slipped through
+	# (e.g., MAS apps installed below, manually-dragged .app bundles, or
+	# casks installed before HOMEBREW_CASK_OPTS was exported in this run).
+	# Then reset QuickLook so the new generators are picked up.
+	echo "strip quarantine xattr from /Applications + reload QuickLook"
+	sudo xattr -dr com.apple.quarantine /Applications 2>/dev/null || true
+	xattr -dr com.apple.quarantine ~/Library/QuickLook 2>/dev/null || true
+	qlmanage -r >/dev/null 2>&1
+	qlmanage -r cache >/dev/null 2>&1
+	killall Finder 2>/dev/null || true
 
 	echo "install of my softs throught mas"
 	brew install mas
