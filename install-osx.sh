@@ -104,6 +104,8 @@ elif [[ $input == 2 ]]; then
     git clone https://github.com/zsh-users/zsh-completions.git
     git clone https://github.com/zsh-users/zsh-autosuggestions.git
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git
+    # fzf-tab — fzf-driven completion narrowing (added 2026-06-24, required for `shi <verb><TAB>`)
+    git clone https://github.com/Aloxaf/fzf-tab.git
     cd $DIR
     echo "Apply installed omz pluglins in .zshrc"
 
@@ -113,11 +115,27 @@ elif [[ $input == 2 ]]; then
     # replace plugins in ~/.zshrc with sed :
     # plugins=(
     #   git
-    #   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603 
+    #   // zsh-completions # rm because doesn't work cf. https://github.com/zsh-users/zsh-completions/issues/603
     #   zsh-autosuggestions
     #   zsh-syntax-highlighting
+    #   fzf-tab     # fzf-driven completion narrowing (shi <verb><TAB> uses this)
     # )
-    sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting)/g' $HOME/.zshrc
+    sed -i '' -e 's/plugins=(git)/plugins=(git zsh-autosuggestions zsh-syntax-highlighting fzf-tab)/g' $HOME/.zshrc
+
+    # === Shikki CLI completion (added 2026-06-24 — day-1 operator requirement) ===
+    # The `shi` binary's verb tree (~360 verbs, 92+ verbs added since May 2026) needs zsh
+    # compdef installed at $HOME/.shikki/etc/zsh/completions/_shi for `shi <verb><TAB>` to work.
+    # `shi ship --dev` should regenerate this on every build (see spec
+    # shi-ship-dev-release-rebuild-and-install-2026-06-24). For first install we just add the
+    # fpath line and fzf-tab zstyle config; the _shi file itself comes from `shi completion zsh`
+    # OR is shipped by the shikki kernel install step.
+    echo "" >> $HOME/.zshrc
+    echo "# === Shikki CLI completion (added 2026-06-24) ===" >> $HOME/.zshrc
+    echo "fpath=(~/.shikki/etc/zsh/completions \$fpath)" >> $HOME/.zshrc
+    echo "autoload -Uz compinit && compinit -i" >> $HOME/.zshrc
+    echo "zstyle ':completion:*' menu no" >> $HOME/.zshrc
+    echo "zstyle ':fzf-tab:*' switch-group '<' '>'" >> $HOME/.zshrc
+    echo "# === End Shikki CLI completion ===" >> $HOME/.zshrc
     
     
     # Set default editor
