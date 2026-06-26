@@ -142,7 +142,27 @@ elif [[ $input == 2 ]]; then
     echo '\n# Setup default code editors' >> $HOME/.zshrc
     echo 'export EDITOR=emacs' >> $HOME/.zshrc
     echo 'export VISUAL="$EDITOR"' >> $HOME/.zshrc
-    echo 'export TERM=xterm-kitty' >> $HOME/.zshrc
+
+    # TERM + kitty/kitten wrappers — tmux-aware so re-attachments from
+    # non-Kitty terminals (Blink.sh on iPad, etc.) don't break ssh.
+    # See: zshrc patch 2026-06-26 — KITTY_PID/KITTY_WINDOW_ID error fix.
+    cat >> $HOME/.zshrc <<'ZSHRC_KITTY'
+
+# Fix Blink.sh TERM — only set kitty if we're actually in Kitty
+case "$TERM" in
+    dumb|"") export TERM=xterm-256color ;;  # Blink.sh fallback
+    xterm-kitty)
+        # Only enable kitten wrappers when DIRECTLY in Kitty (no tmux layer).
+        # tmux preserves TERM=xterm-kitty across re-attachments from non-Kitty
+        # terminals (e.g. Blink.sh on iPad), where kitten ssh fails with
+        # "Incorrect request id … expecting the KITTY_PID_KITTY_WINDOW_ID".
+        if [[ -z "$TMUX" ]]; then
+            alias ssh="kitty +kitten ssh"
+            alias icat="kitten icat"
+        fi
+        ;;
+esac
+ZSHRC_KITTY
 
     
     # use GNU stow to create symlinks of dotfiles in home directory
