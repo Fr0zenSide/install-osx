@@ -256,7 +256,16 @@ ZSHRC_KITTY
     echo 'tre() { command tre "$@" -e && source "/tmp/tre_aliases_$USER" 2>/dev/null; }' >> $HOME/.zshrc
     echo 'source /tmp/tre_aliases_$USER' >> $HOME/.zshrc
 
-    
+
+    # Headless browsers for web automation / scraping / JS-rendered pages.
+    # Per shikki golden rule [[no-chromium-use-lightpanda-or-playwright-2026-06-30]]:
+    # NEVER use Chromium / Google Chrome headless — drags telemetry + 400MB binary + macOS extension prompts.
+    # Lightpanda first (Zig-based, ~2MB, sovereign), Playwright as multi-engine fallback.
+    brew install lightpanda-io/browser/lightpanda
+    # Playwright is npm-installed per-project; global helper for ad-hoc work:
+    # npm install -g playwright && npx playwright install
+
+
     # Create workspaces and add symlinks to go fast to xcode folders (cd ~/.wsx)
 
     mkdir -p ~/Documents/Workspaces/xcode
