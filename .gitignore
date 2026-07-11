@@ -46,3 +46,41 @@ dotfiles/.config/woodpecker-agent/
 dotfiles/.config/zed/prompts/
 tmp/
 \#*\#
+
+# ── DEFAULT-DENY for dotfiles/.config (2026-07-11) ──
+# ~/.config symlinks INTO this repo → every app writes runtime state/secrets
+# into a public git working tree. Deny all, whitelist curated configs only.
+dotfiles/.config/*
+!dotfiles/.config/.stowrc
+!dotfiles/.config/.mitmproxy/
+!dotfiles/.config/alacritty/
+!dotfiles/.config/atuin/
+!dotfiles/.config/bat/
+!dotfiles/.config/caddy/
+!dotfiles/.config/colorls/
+!dotfiles/.config/emacs/
+!dotfiles/.config/git/
+!dotfiles/.config/glow/
+!dotfiles/.config/kitty/
+!dotfiles/.config/mole/
+!dotfiles/.config/opencode/
+!dotfiles/.config/qmd/
+!dotfiles/.config/scripts/
+!dotfiles/.config/shikki/
+!dotfiles/.config/shikki-notify/
+!dotfiles/.config/shikki-tui/
+!dotfiles/.config/swiftpm/
+!dotfiles/.config/tmux/
+!dotfiles/.config/zed/
+# re-deny the secret/state paths INSIDE whitelisted dirs (deny wins when deeper)
+dotfiles/.config/shikki/keys/
+dotfiles/.config/shikki/restic-passphrase*
+dotfiles/.config/shikki/nats-server.*
+dotfiles/.config/shikki/test-cache/
+dotfiles/.config/shikki/tmux-state.json
+dotfiles/.config/shikki/last-session
+dotfiles/.config/atuin/*
+!dotfiles/.config/atuin/config.toml
+dotfiles/.config/caddy/autosave.json
+dotfiles/.config/emacs/elpa/
+dotfiles/.config/zed/prompts/
