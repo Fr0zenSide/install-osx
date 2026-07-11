@@ -1,0 +1,4 @@
+collections:
+  shikki:
+    path: /Users/jeoffrey/Documents/Workspaces/shikki
+    pattern: "**/*.md"

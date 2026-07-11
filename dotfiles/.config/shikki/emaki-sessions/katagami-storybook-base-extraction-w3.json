@@ -1,0 +1,70 @@
+{
+  "cursorIndex" : 0,
+  "itemStatuses" : [
+    {
+      "body" : "Shells to `kagami storybook emit --include primitives --target .`",
+      "codeRefs" : [
+
+      ],
+      "id" : "46B61D5A-8622-457A-B67A-4E8D20E0BD76",
+      "identifier" : "AD-01",
+      "kind" : "architectureDecision",
+      "questions" : [
+
+      ],
+      "sourceRange" : {
+        "endLine" : 101,
+        "startLine" : 101
+      },
+      "status" : "pending",
+      "title" : "Shells to `kagami storybook emit --include primitives --target .`"
+    },
+    {
+      "body" : "Iterates the client's own widget\/composition dicts (the c-tech \/",
+      "codeRefs" : [
+
+      ],
+      "id" : "5161FC9E-6909-4B15-9ECB-2D34A9E6DE82",
+      "identifier" : "AD-02",
+      "kind" : "architectureDecision",
+      "questions" : [
+
+      ],
+      "sourceRange" : {
+        "endLine" : 102,
+        "startLine" : 102
+      },
+      "status" : "pending",
+      "title" : "Iterates the client's own widget\/composition dicts (the c-tech \/"
+    },
+    {
+      "body" : "Writes those pages using the same `ChromePageEmitter` shape so the",
+      "codeRefs" : [
+
+      ],
+      "id" : "46702289-F026-4D8F-A22C-BF47B6E5CD6E",
+      "identifier" : "AD-03",
+      "kind" : "architectureDecision",
+      "questions" : [
+
+      ],
+      "sourceRange" : {
+        "endLine" : 104,
+        "startLine" : 104
+      },
+      "status" : "pending",
+      "title" : "Writes those pages using the same `ChromePageEmitter` shape so the"
+    }
+  ],
+  "progress" : {
+    "approved" : 0,
+    "deferred" : 0,
+    "needsInfo" : 0,
+    "pending" : 3,
+    "rejected" : 0,
+    "total" : 3
+  },
+  "reviewer" : "@Daimyo",
+  "savedAt" : "2026-05-22T17:28:04Z",
+  "specSlug" : "katagami-storybook-base-extraction-w3"
+}

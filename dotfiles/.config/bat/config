@@ -1,0 +1,6 @@
+# Shikki bat config
+--theme="Dracula"
+--style="numbers,header,grid"
+--pager="less -R -z-3 --mouse -j2"
+--map-syntax="*.md:Markdown"
+--italic-text=always

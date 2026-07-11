@@ -1,0 +1,71 @@
+{
+   "$schema": "https://opencode.ai/config.json",
+   "provider": {
+     "LlamaCPP": {
+       "npm": "@ai-sdk/openai-compatible",
+	 "name": "Jan (local)",
+       "options": {
+	   "baseURL": "http://127.0.0.1:1337/v1",
+	   "apiKey": "123"
+       },
+	 "models": {
+	     "mistralai/Ministral-3-8B-Reasoning-2512-BF16": {
+		 "name": "Ministral-3-8B-Reasoning"
+	     },
+	     "gpt-oss-20b-claude-4_5-sonnet-high-reasoning-distill-bf16": {
+		 "name": "claude-4_5"
+	     },
+	     "Llama3_3-8B-Instruct-Thinking-Heretic-Uncensored-Claude-4_5-Opus-High-Reasoning_i1-IQ4_XS": {
+		 "name": "claude-4_5-opus"
+	     },
+	     "Qwen3-4B-Claude-Sonnet-4-Reasoning-Distill-Safetensor_IQ4_XS": {
+		 "name": "Qwen3-4B-Claude-Sonnet-4"
+	     }
+       }
+     },
+      "LMStudio": {
+	  "npm": "@ai-sdk/openai-compatible",
+	  "name": "LM Studio (local)",
+	  "options": {
+	      "baseURL": "http://127.0.0.1:1234/v1",
+	      "apiKey": "sk-lm-kDXtHOi1:xuc5xMtdmINWnqpE5vUU"
+	  },
+	  "models": {
+	      "zai-org/glm-4.7-flash": {
+		  "name": "GLM-4.7-flash",
+		  "limit": {
+		     "context": 65536,
+		     "output": 10000
+		 }
+	      },
+	      "zai-org/glm-4.6v-flash": {
+		  "name": "GLM-4.6-flash",
+	     },
+	     "qwen/qwen3-coder-next": {
+		 "name": "Qwen3-coder-next"
+	     },
+	     "mistralai/devstral-small-2-2512": {
+		 "name": "Devstral-small-2-2512"
+	     }
+	 }
+     }
+  },
+    "mcp": {
+	"xcode-tools": {
+	    "type": "local",
+	    "enabled": true,
+	    "command": ["xcrun", "mcpbridge"]
+	},
+	"sosumi": {
+	    "type": "remote",
+	    "enabled": true,
+	    "url": "https://sosumi.ai/mcp"
+	},
+	"sosumi-local": {
+	    "type": "local",
+	    "enabled": false,
+	    "command": ["npx", "-y", "mcp-remote", "http://localhost:8787"]
+	}	
+    },
+    "plugin": ["@tarquinen/opencode-dcp@latest"]
+}

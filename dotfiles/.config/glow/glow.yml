@@ -1,0 +1,6 @@
+# Shikki glow config
+style: "/Users/jeoffrey/.config/glow/shikki.json"
+local: false
+mouse: true
+pager: true
+width: 0

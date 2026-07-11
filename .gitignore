@@ -25,3 +25,24 @@ dotfiles/.config/shikki/.env
 **/daemon.log
 **/approval.log
 **/operations.log
+
+# ── machine-state & secrets guard (2026-07-11, public repo) ──
+dotfiles/.config/.android/
+dotfiles/.config/atuin/*
+!dotfiles/.config/atuin/config.toml
+dotfiles/.config/caddy/autosave.json
+dotfiles/.config/colima/
+dotfiles/.config/configstore/
+dotfiles/.config/emacs/elpa/
+dotfiles/.config/filezilla/
+dotfiles/.config/gh/
+dotfiles/.config/shikki/keys/
+dotfiles/.config/shikki/restic-passphrase*
+dotfiles/.config/shikki/nats-server.*
+dotfiles/.config/shikki/test-cache/
+dotfiles/.config/shikki/tmux-state.json
+dotfiles/.config/shikki/last-session
+dotfiles/.config/woodpecker-agent/
+dotfiles/.config/zed/prompts/
+tmp/
+\#*\#

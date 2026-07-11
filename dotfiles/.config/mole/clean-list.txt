@@ -1,0 +1,20 @@
+# Mole Cleanup Preview - 2026-05-11 10:58:14
+#
+# How to protect files:
+# 1. Copy any path below to ~/.config/mole/whitelist
+# 2. Run: mo clean --whitelist
+#
+# Example:
+#   /Users/*/Library/Caches/com.example.app
+#
+
+
+=== User essentials ===
+/Users/jeoffrey/Library/Caches  # 5.69GB, 25 items
+/Users/jeoffrey/Library/Logs  # 1.4MB, 8 items
+
+=== App caches ===
+/Users/jeoffrey/Library/Autosave Information  # 33KB, 2 items
+/Users/jeoffrey/Library/Suggestions  # 4.4MB, 17 items
+/Users/jeoffrey/Library/Messages/StickerCache  # 91.9MB, 703 items
+/Users/jeoffrey/Library/Messages/Caches/Previews/Attachments  # 4.09GB, 252 items
