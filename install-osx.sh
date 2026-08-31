@@ -296,6 +296,45 @@ ZSHRC_KITTY
     # source updated .zshrc file
     source $HOME/.zshrc
     wait
+
+    # === W2: shikki-dev signing certificate bootstrap ===
+    # Provisions a self-signed Code Signing cert named "shikki-dev" in the
+    # login keychain BEFORE the first `make install` run, so the binary gets a
+    # stable codesign identity from day one — no background-item notification
+    # spam on every rebuild.
+    # Relies on setup-dev-signing.sh from the shikki repo (W1 PR #110).
+    # The script is idempotent: re-running install-osx.sh is safe.
+    # Resolved, never hardcoded (operator review PR #1): ~/.config/scripts first
+    # (this repo's dotfiles, symlinked above), then the real shikki checkout.
+    SHIKKI_SIGNING_SCRIPT=""
+    for candidate in \
+        "$HOME/.config/scripts/setup-dev-signing.sh" \
+        "${SHIKKI_ROOT:-$HOME/.shikki}/workspaces/shikki-io/projects/shikki/scripts/setup-dev-signing.sh"
+    do
+        if [ -f "$candidate" ]; then
+            SHIKKI_SIGNING_SCRIPT="$candidate"
+            break
+        fi
+    done
+
+    # Re-check with [ -f ] at the call site: the candidate was resolved above, but a
+    # broken symlink or a dotfiles relink between resolution and invocation would make
+    # the exec fail with a bare "command not found" instead of the runbook below.
+    if [ -n "$SHIKKI_SIGNING_SCRIPT" ] && [ -f "$SHIKKI_SIGNING_SCRIPT" ]; then
+        echo "[install-osx] Bootstrapping shikki-dev signing certificate..."
+        echo "[install-osx]   using: $SHIKKI_SIGNING_SCRIPT"
+        "$SHIKKI_SIGNING_SCRIPT" || {
+            echo "[install-osx] WARNING: shikki-dev cert bootstrap failed (non-fatal)"
+            echo "[install-osx]   Manually run: $SHIKKI_SIGNING_SCRIPT"
+            echo "[install-osx]   Then rebuild shikki so binaries are signed with it."
+        }
+    else
+        echo "[install-osx] WARNING: setup-dev-signing.sh not found."
+        echo "[install-osx]   Looked in: ~/.config/scripts/ and the shikki workspace checkout."
+        echo "[install-osx]   Link your dotfiles (adds ~/.config/scripts) or clone shikki, then re-run."
+    fi
+    # === end W2 ===
+
     echo 'command line tools is installed'
 
 
