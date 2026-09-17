@@ -88,3 +88,16 @@ dotfiles/.config/zed/prompts/
 # local credential backups never belong in git
 *.env.bak*
 .env
+# Secrets — env files and every backup of them never belong in git.
+# A backup is git history, not a copy next to the file.
+.env
+.env.*
+*.env
+*.env.bak*
+*.env.back*
+!.env.example
+!.env.template
+!.env.sample
+!.env.dist
+!*.env.example
+!*.env.template
