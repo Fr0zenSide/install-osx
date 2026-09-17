@@ -84,3 +84,7 @@ dotfiles/.config/atuin/*
 dotfiles/.config/caddy/autosave.json
 dotfiles/.config/emacs/elpa/
 dotfiles/.config/zed/prompts/
+
+# local credential backups never belong in git
+*.env.bak*
+.env
